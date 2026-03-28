@@ -1828,6 +1828,12 @@ document.querySelectorAll('.ul-fsc').forEach((c,i)=>{
   if(!form) return;
 
   form.addEventListener('submit', async function(e){
+    // If the form is configured to post directly to Formspree, skip the JS handler
+    // so the browser performs a normal form submit. This allows using Formspree
+    // without requiring Cloudflare Turnstile server-side verification.
+    if(form.action && form.action.includes('formspree.io')){
+      return;
+    }
     e.preventDefault();
 
     // 1. Basic HTML5 validation
