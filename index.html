@@ -1,1 +1,1900 @@
-Beforeyoubuild.ca
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Before You Build — Customer Research for Business Leaders</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+<style>
+/* ─── RESET ─── */
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;font-size:16px}
+body{font-family:var(--sans);background:#fff;color:var(--ink);overflow-x:hidden;cursor:none}
+img,svg{display:block}
+a{text-decoration:none}
+
+/* ─── TOKENS ─── */
+:root{
+  --ink:       #0D1422;
+  --ink-mid:   #4A5568;
+  --ink-soft:  #8896AB;
+  --white:     #FFFFFF;
+  --off:       #F5F7FF;
+  --off-2:     #EEF1FD;
+  --accent:    #3D5FE0;
+  --accent-lt: #6E8FF5;
+  --accent-dk: #2544C8;
+  --green:     #10B981;
+  --red:       #EF4444;
+  --serif:     'Playfair Display',Georgia,serif;
+  --sans:      'Inter',-apple-system,sans-serif;
+  --r:         14px;
+  --r-lg:      22px;
+  --sh-sm:     0 1px 4px rgba(13,20,34,.06),0 1px 2px rgba(13,20,34,.04);
+  --sh-md:     0 4px 20px rgba(13,20,34,.08),0 2px 6px rgba(13,20,34,.04);
+  --sh-lg:     0 16px 48px rgba(13,20,34,.10),0 4px 16px rgba(13,20,34,.06);
+  --ease:      cubic-bezier(.4,0,.2,1);
+}
+
+/* ─── CUSTOM CURSOR ─── */
+#ul-dot{position:fixed;width:7px;height:7px;background:var(--accent);border-radius:50%;pointer-events:none;z-index:9999;transition:transform .12s,opacity .2s;transform:translate(-50%,-50%)}
+#ul-ring{position:fixed;width:34px;height:34px;border:1.5px solid rgba(61,95,224,.35);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:width .2s var(--ease),height .2s var(--ease),opacity .2s}
+
+/* ─── NAV ─── */
+#ul-nav{
+  position:fixed;top:0;left:0;right:0;z-index:200;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 5%;height:72px;
+  transition:background .35s,box-shadow .35s;
+}
+#ul-nav.stuck{
+  background:rgba(255,255,255,.94);
+  backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);
+  box-shadow:0 1px 0 rgba(13,20,34,.07);
+}
+/* ─── LOGO ─── */
+.ul-logo{display:inline-flex;align-items:center;gap:.7rem;text-decoration:none}
+.ul-logo-mark{width:38px;height:38px;flex-shrink:0}
+.ul-logo-text{font-family:var(--sans);font-size:1.1rem;font-weight:400;color:var(--ink-mid);letter-spacing:-.01em;line-height:1}
+.ul-logo-text strong{font-weight:700;color:var(--ink)}
+.ul-nav-links{display:flex;align-items:center;gap:2.25rem;list-style:none}
+.ul-nav-links a{font-size:.875rem;font-weight:500;color:var(--ink-mid);transition:color .2s}
+.ul-nav-links a:hover{color:var(--ink)}
+.ul-nav-cta{
+  background:var(--accent);color:#fff!important;
+  padding:.5rem 1.4rem;border-radius:100px;
+  font-weight:600!important;font-size:.85rem!important;
+  transition:background .2s,transform .2s!important;
+}
+.ul-nav-cta:hover{background:var(--accent-dk)!important;transform:translateY(-1px)!important}
+
+/* ─── ORB BACKGROUND (reusable) ─── */
+.ul-orb-field{position:absolute;inset:0;overflow:hidden;pointer-events:none;z-index:0}
+.ul-orb{position:absolute;border-radius:50%;filter:blur(90px)}
+.ul-orb-blue  {background:radial-gradient(circle,rgba(61,95,224,.20) 0%,transparent 70%)}
+.ul-orb-indigo{background:radial-gradient(circle,rgba(110,143,245,.16) 0%,transparent 70%)}
+.ul-orb-soft  {background:radial-gradient(circle,rgba(37,68,200,.12) 0%,transparent 70%)}
+@keyframes orbA{0%,100%{transform:translate(0,0) scale(1)}40%{transform:translate(-30px,25px) scale(1.05)}70%{transform:translate(20px,-20px) scale(.96)}}
+@keyframes orbB{0%,100%{transform:translate(0,0) scale(1)}35%{transform:translate(35px,-30px) scale(.95)}70%{transform:translate(-15px,18px) scale(1.04)}}
+@keyframes orbC{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(18px,-24px) scale(1.06)}}
+.anim-a{animation:orbA 20s ease-in-out infinite}
+.anim-b{animation:orbB 24s ease-in-out infinite}
+.anim-c{animation:orbC 18s ease-in-out infinite}
+
+/* grid dots */
+.ul-dots{
+  position:absolute;inset:0;pointer-events:none;
+  background-image:radial-gradient(circle,rgba(61,95,224,.12) 1px,transparent 1px);
+  background-size:30px 30px;
+}
+
+/* ─── HERO ─── */
+#ul-hero{
+  position:relative;min-height:100vh;
+  display:flex;align-items:center;
+  padding:0 5%;background:#fff;overflow:hidden;
+}
+.ul-hero-content{position:relative;z-index:2;max-width:600px}
+
+.ul-eyebrow{
+  display:inline-flex;align-items:center;gap:.5rem;
+  background:var(--off-2);color:var(--accent);
+  font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
+  padding:.35rem 1rem;border-radius:100px;margin-bottom:1.75rem;
+  opacity:0;transform:translateY(16px);
+  animation:fadeUp .7s .2s forwards;
+}
+.ul-eyebrow::before{content:'';width:6px;height:6px;background:var(--accent);border-radius:50%}
+
+.ul-h1{
+  font-family:var(--serif);
+  font-size:clamp(2.3rem,4.5vw,3.6rem);
+  font-weight:700;line-height:1.11;letter-spacing:-.025em;
+  color:var(--ink);margin-bottom:1.3rem;
+  opacity:0;transform:translateY(22px);
+  animation:fadeUp .8s .4s forwards;
+}
+.ul-h1 em{font-style:italic;color:#1a3ab8}
+.ul-h1-nowrap{white-space:nowrap;font-size:88%}
+
+.ul-sub{
+  font-size:1rem;line-height:1.75;color:var(--ink-mid);
+  max-width:560px;margin-bottom:1.6rem;
+  opacity:0;transform:translateY(18px);
+  animation:fadeUp .8s .6s forwards;
+}
+
+#ul-word{
+  font-weight:600;color:var(--ink);
+  display:inline;
+  transition:opacity .3s ease,transform .3s ease;
+}
+
+.ul-hero-model{
+  font-size:.72rem;color:var(--ink-lt);letter-spacing:.04em;
+  margin-bottom:1.6rem;display:flex;align-items:center;gap:.5rem;
+  opacity:0;transform:translateY(16px);animation:fadeUp .8s .65s forwards;
+}
+.ul-hero-model-dot{width:4px;height:4px;border-radius:50%;background:var(--accent);opacity:.5;flex-shrink:0}
+.ul-hero-btns{
+  display:flex;align-items:center;gap:1.25rem;flex-wrap:wrap;
+  opacity:0;transform:translateY(16px);
+  animation:fadeUp .8s .8s forwards;
+}
+.ul-btn-primary{
+  background:var(--accent);color:#fff;
+  padding:.875rem 2rem;border-radius:100px;
+  font-size:.9rem;font-weight:600;
+  display:inline-flex;align-items:center;gap:.5rem;
+  box-shadow:0 6px 24px rgba(61,95,224,.30);
+  transition:background .25s,transform .25s var(--ease),box-shadow .25s;
+  position:relative;overflow:hidden;
+}
+.ul-btn-primary::before{
+  content:'';position:absolute;inset:-2px;
+  background:radial-gradient(circle at center,rgba(255,255,255,.18) 0%,transparent 65%);
+  opacity:0;transition:opacity .3s;
+}
+.ul-btn-primary:hover{background:var(--accent-dk);transform:translateY(-3px);box-shadow:0 14px 40px rgba(61,95,224,.42)}
+.ul-btn-primary:hover::before{opacity:1}
+.ul-btn-text{
+  color:var(--ink-mid);font-size:.875rem;font-weight:500;
+  display:inline-flex;align-items:center;gap:.35rem;
+  transition:color .2s;
+}
+.ul-btn-text span{transition:transform .2s}
+.ul-btn-text:hover{color:var(--ink)}
+.ul-btn-text:hover span{transform:translateX(4px)}
+
+/* Hero visual */
+.ul-hero-vis{
+  position:absolute;right:3%;top:50%;transform:translateY(-50%);
+  width:min(50vw,580px);pointer-events:none;
+  opacity:0;animation:fadeIn 1s 1s forwards;
+}
+
+/* Floating stat cards */
+.ul-fsc{
+  position:absolute;background:#fff;
+  border:1px solid rgba(61,95,224,.18);border-radius:var(--r);
+  padding:1.1rem 1.4rem;
+  box-shadow:0 8px 32px rgba(61,95,224,.14),0 2px 8px rgba(13,20,34,.08);
+  opacity:0;min-width:140px;
+  transition:box-shadow .3s,transform .3s;
+}
+.ul-fsc:hover{box-shadow:0 16px 48px rgba(61,95,224,.22),0 4px 16px rgba(13,20,34,.10)!important;transform:translateY(-4px)!important;animation-play-state:paused}
+.ul-fsc-1{top:14%;right:4%; animation:scIn .6s 1.5s forwards,floatA 4.5s 2.2s ease-in-out infinite}
+.ul-fsc-2{bottom:26%;right:-2%;animation:scIn .6s 1.7s forwards,floatB 5.5s 2.6s ease-in-out infinite}
+.ul-fsc-3{bottom:10%;left:6%; animation:scIn .6s 1.9s forwards,floatA 5s 3s ease-in-out infinite}
+.ul-fsc-n{font-family:var(--serif);font-size:2rem;font-weight:700;color:var(--accent);line-height:1}
+.ul-fsc-l{font-size:.72rem;color:var(--ink-soft);font-weight:500;margin-top:.25rem;line-height:1.35}
+.ul-fsc-bar{width:100%;height:3px;background:var(--off-2);border-radius:2px;margin-top:.8rem;overflow:hidden}
+.ul-fsc-bar span{display:block;height:100%;background:linear-gradient(90deg,var(--accent),var(--accent-lt));border-radius:2px;animation:barGrow 1.5s ease forwards}
+@keyframes barGrow{from{width:0}to{width:inherit}}
+
+@keyframes scIn  {to{opacity:1}}
+@keyframes floatA{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
+@keyframes floatB{0%,100%{transform:translateY(0)}50%{transform:translateY(11px)}}
+
+/* Lens SVG animations */
+.ul-arc-cw {transform-origin:200px 200px;animation:spinCW 12s linear infinite}
+.ul-arc-ccw{transform-origin:200px 200px;animation:spinCCW 18s linear infinite}
+.ul-lens-pulse{animation:breathe 4s ease-in-out infinite}
+@keyframes spinCW  {to{transform:rotate(360deg)}}
+@keyframes spinCCW {to{transform:rotate(-360deg)}}
+@keyframes breathe {0%,100%{opacity:.4;r:100}50%{opacity:1;r:108}}
+
+/* ─── TICKER ─── */
+#ul-ticker{
+  border-top:1px solid rgba(13,20,34,.06);
+  border-bottom:1px solid rgba(13,20,34,.06);
+  background:#fff;padding:.9rem 0;overflow:hidden;
+  position:relative;z-index:1;
+}
+.ul-ticker-track{display:flex;width:max-content;animation:tickerScroll 30s linear infinite}
+.ul-ticker-item{
+  display:inline-flex;align-items:center;gap:.85rem;
+  padding:0 2rem;white-space:nowrap;
+  font-size:.72rem;font-weight:700;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--ink-soft);
+}
+.ul-ticker-item::after{content:'◆';font-size:.45rem;color:var(--accent);opacity:.55}
+.ul-ticker-industry{
+  background:var(--off-2);color:var(--accent);
+  border-radius:100px;padding:.15rem .75rem;
+  border:1px solid rgba(61,95,224,.15);
+  font-weight:700;
+}
+.ul-ticker-industry::after{display:none}
+@keyframes tickerScroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+/* ─── SECTION BASE ─── */
+.ul-section{padding:7rem 5%;position:relative}
+.ul-section-label{
+  font-size:.72rem;font-weight:700;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--accent);margin-bottom:.85rem;
+}
+.ul-h2{
+  font-family:var(--serif);
+  font-size:clamp(1.85rem,3.2vw,2.7rem);
+  font-weight:700;line-height:1.18;letter-spacing:-.022em;
+  color:var(--ink);margin-bottom:1rem;
+}
+.ul-lead{font-size:1rem;line-height:1.8;color:var(--ink-mid);max-width:580px}
+.ul-hdr{margin-bottom:3.5rem;max-width:640px}
+
+/* reveal */
+.ul-rv{opacity:0;transform:translateY(26px);transition:opacity .65s var(--ease),transform .65s var(--ease)}
+.ul-rv.on{opacity:1;transform:none}
+.ul-rv.d1{transition-delay:.1s}.ul-rv.d2{transition-delay:.2s}.ul-rv.d3{transition-delay:.3s}
+.ul-rv.d4{transition-delay:.4s}.ul-rv.d5{transition-delay:.5s}
+
+/* ─── PROBLEM SECTION ─── */
+#ul-problem{background:var(--off)}
+
+/* ─── COMPARE TABLE ─── */
+.ul-compare{
+  max-width:880px;margin-bottom:1.25rem;
+  background:#fff;border-radius:var(--r-lg);
+  border:1px solid rgba(13,20,34,.08);
+  overflow:hidden;box-shadow:var(--sh-sm);
+}
+.ul-compare-hdr{
+  display:grid;grid-template-columns:1fr 1px 1fr;
+  background:var(--off);border-bottom:1px solid rgba(13,20,34,.08);
+  padding:.9rem 1.75rem;align-items:center;
+}
+.ul-ch-bad{
+  font-size:.7rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
+  color:#DC2626;display:flex;align-items:center;gap:.45rem;
+}
+.ul-ch-good{
+  font-size:.7rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--accent);display:flex;align-items:center;gap:.45rem;
+  padding-left:1.75rem;
+}
+.ul-ch-divider{width:1px;background:rgba(13,20,34,.12);height:26px;justify-self:center}
+.ul-compare-row{
+  display:grid;grid-template-columns:1fr 1px 1fr;
+  padding:.95rem 1.75rem;align-items:start;
+  border-bottom:1px solid rgba(13,20,34,.05);
+  transition:background .18s;
+}
+.ul-compare-row:last-child{border-bottom:none}
+.ul-compare-row:hover{background:#FAFBFF}
+.ul-cr-bad{
+  display:flex;align-items:flex-start;gap:.55rem;
+  font-size:.875rem;line-height:1.5;color:var(--ink-mid);
+  padding-right:1.5rem;
+}
+.ul-cr-bad::before{content:'✕';color:#DC2626;font-size:.78rem;font-weight:700;flex-shrink:0;margin-top:.14em}
+.ul-cr-good{
+  display:flex;align-items:flex-start;gap:.55rem;
+  font-size:.875rem;line-height:1.5;color:var(--ink);font-weight:500;
+  padding-left:1.5rem;
+}
+.ul-cr-good::before{content:'✓';color:var(--accent);font-size:.78rem;font-weight:700;flex-shrink:0;margin-top:.14em}
+.ul-cr-divider{width:1px;background:rgba(13,20,34,.07);min-height:20px;align-self:stretch;justify-self:center}
+
+.ul-pc-accent{
+  max-width:880px;
+  background:var(--accent);color:#fff;
+  border-radius:var(--r-lg);padding:1.75rem 2.25rem;
+  display:flex;align-items:center;gap:2rem;
+  border:none;transition:box-shadow .3s;
+}
+.ul-pc-accent:hover{box-shadow:0 12px 40px rgba(61,95,224,.3)}
+.ul-pac-text{font-family:var(--serif);font-size:1.25rem;font-weight:600;line-height:1.4;flex:1}
+.ul-pac-stat{text-align:center;flex-shrink:0;min-width:80px}
+.ul-pac-num{font-family:var(--serif);font-size:2.4rem;font-weight:700;line-height:1}
+.ul-pac-label{font-size:.72rem;opacity:.8;margin-top:.2rem}
+
+/* ─── ZONES ─── */
+#ul-zones{background:#fff}
+/* ── Zone rows ── */
+.ul-zones-list{display:flex;flex-direction:column;max-width:1000px;margin:0 auto;width:100%}
+.ul-zr{
+  display:grid;grid-template-columns:72px 1fr 210px;
+  gap:2.5rem;align-items:start;
+  padding:2.5rem 0;
+  border-top:1px solid rgba(13,20,34,.08);
+  position:relative;transition:background .25s;
+  cursor:default;
+}
+.ul-zr:last-child{border-bottom:1px solid rgba(13,20,34,.08)}
+/* sliding left accent bar */
+.ul-zr::before{
+  content:'';position:absolute;left:-2rem;top:0;bottom:0;width:3px;
+  background:linear-gradient(180deg,var(--accent),var(--accent-lt));
+  transform:scaleY(0);transform-origin:bottom;
+  transition:transform .4s var(--ease);
+}
+.ul-zr:hover::before{transform:scaleY(1)}
+.ul-zr:hover{background:rgba(61,95,224,.025)}
+/* number */
+.ul-zr-num{
+  font-family:var(--serif);font-size:2.8rem;font-weight:700;
+  color:rgba(13,20,34,.08);line-height:1;
+  padding-top:.35rem;
+  transition:color .3s;
+}
+.ul-zr:hover .ul-zr-num{color:rgba(61,95,224,.2)}
+/* centre content */
+.ul-zr-body{}
+.ul-zr-head{display:flex;align-items:center;gap:.75rem;margin-bottom:.65rem}
+.ul-zr-icon{
+  width:38px;height:38px;background:var(--off-2);border-radius:10px;
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
+  transition:background .35s,transform .35s var(--ease);
+}
+.ul-zr:hover .ul-zr-icon{background:var(--accent);transform:rotate(-6deg) scale(1.06)}
+.ul-zr-icon svg{width:18px;height:18px;stroke:var(--accent);fill:none;stroke-width:1.8;transition:stroke .35s}
+.ul-zr:hover .ul-zr-icon svg{stroke:#fff}
+.ul-zr-label{font-size:.65rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-lt);transition:color .3s}
+.ul-zr:hover .ul-zr-label{color:var(--accent)}
+.ul-zr-title{font-family:var(--serif);font-size:1.25rem;font-weight:700;color:var(--ink);line-height:1.22;margin-bottom:.65rem;transition:color .3s}
+.ul-zr:hover .ul-zr-title{color:var(--accent-dk)}
+.ul-zr-desc{font-size:.875rem;line-height:1.7;color:var(--ink-mid)}
+/* situational prompts */
+.ul-zr-when{margin:1.1rem 0 .9rem}
+.ul-zr-when-label{font-size:.6rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-lt);display:block;margin-bottom:.55rem}
+.ul-zr-when-items{display:flex;flex-direction:column;gap:.4rem}
+.ul-zr-when-item{display:flex;gap:.6rem;align-items:flex-start;font-size:.82rem;color:var(--ink-mid);line-height:1.45}
+.ul-zr-when-item::before{content:'→';color:var(--accent);font-size:.75rem;flex-shrink:0;margin-top:.1em;font-weight:600}
+/* key question — right column */
+.ul-zr-q{
+  background:var(--off);border:1px solid rgba(13,20,34,.07);
+  border-radius:var(--r-lg);padding:1.25rem 1.4rem;
+  display:flex;flex-direction:column;gap:.75rem;
+  transition:border-color .3s,background .3s;
+}
+.ul-zr:hover .ul-zr-q{background:var(--off-2);border-color:rgba(61,95,224,.18)}
+.ul-zr-q-label{font-size:.6rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-lt)}
+.ul-zr-q-text{font-family:var(--serif);font-size:.95rem;font-style:italic;color:var(--ink);line-height:1.5}
+.ul-zr-tags{display:flex;flex-wrap:wrap;gap:.35rem;margin-top:.5rem}
+.ul-zr-tag{
+  background:rgba(61,95,224,.08);color:var(--accent);
+  font-size:.65rem;font-weight:600;
+  padding:.2rem .6rem;border-radius:100px;
+  border:1px solid rgba(61,95,224,.14);
+}
+.ul-zones-nudge{margin-top:2.5rem;text-align:center;font-size:.88rem;color:var(--ink-soft)}
+.ul-zones-nudge-link{color:var(--accent);font-weight:500;transition:color .2s}
+.ul-zones-nudge-link:hover{color:var(--accent-dk)}
+.ul-wc-img{width:100%;height:160px;overflow:hidden;border-radius:12px 12px 0 0;flex-shrink:0}
+.ul-wc-img img{width:100%;height:100%;object-fit:cover;display:block;filter:brightness(.88) saturate(.85);transition:filter .4s,transform .5s cubic-bezier(.4,0,.2,1)}
+.ul-wc:hover .ul-wc-img img{filter:brightness(.95) saturate(1);transform:scale(1.04)}
+/* ─── WORK CAROUSEL ─── */
+#ul-work{background:var(--ink)}
+#ul-work .ul-section-label{color:var(--accent-lt);opacity:.8}
+#ul-work .ul-h2{color:#fff}
+.ul-work-hdr{display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:1.25rem;margin-bottom:2rem}
+.ul-work-nav{display:flex;align-items:center;gap:.75rem;flex-shrink:0}
+.ul-wnav-btn{
+  width:42px;height:42px;border-radius:50%;
+  border:1.5px solid rgba(255,255,255,.14);background:rgba(255,255,255,.07);
+  cursor:pointer;display:flex;align-items:center;justify-content:center;
+  transition:background .2s,border-color .2s,transform .15s,color .2s;
+  color:rgba(255,255,255,.6);
+}
+.ul-wnav-btn:hover{background:var(--accent);border-color:var(--accent);color:#fff;transform:scale(1.06)}
+.ul-wnav-btn:disabled{opacity:.25;cursor:default;transform:none;pointer-events:none}
+.ul-wnav-count{font-size:.8rem;font-weight:600;color:rgba(255,255,255,.38);min-width:46px;text-align:center;letter-spacing:.04em}
+.ul-work-track-wrap{overflow:hidden;position:relative}
+/* right-edge fade hint — peek effect */
+.ul-work-track-wrap::after{
+  content:'';position:absolute;top:0;right:0;bottom:0;width:90px;
+  background:linear-gradient(to left,var(--ink),transparent);
+  pointer-events:none;z-index:2;
+}
+.ul-work-track{
+  display:flex;gap:1.25rem;
+  transition:transform .55s cubic-bezier(.4,0,.2,1);
+  will-change:transform;cursor:grab;user-select:none;
+}
+.ul-work-track.dragging{cursor:grabbing;transition:none}
+.ul-wc{
+  flex-shrink:0;
+  background:rgba(255,255,255,.055);border-radius:var(--r-lg);overflow:hidden;
+  border:1px solid rgba(255,255,255,.1);
+  box-shadow:0 4px 24px rgba(0,0,0,.3),0 1px 4px rgba(0,0,0,.2);
+  transition:box-shadow .35s var(--ease),transform .35s var(--ease),border-color .35s,background .35s;
+  display:flex;flex-direction:column;
+  text-decoration:none;color:inherit;
+  position:relative;
+}
+.ul-wc:hover{
+  background:rgba(255,255,255,.09);
+  border-color:rgba(110,143,245,.45);
+  box-shadow:0 20px 56px rgba(0,0,0,.45),0 0 0 1px rgba(110,143,245,.3);
+  transform:translateY(-6px);
+}
+.ul-wc-cta{
+  position:absolute;top:1rem;right:1.25rem;
+  display:flex;align-items:center;gap:.3rem;
+  font-size:.72rem;font-weight:700;color:var(--accent-lt);
+  opacity:0;transform:translateY(6px);
+  transition:opacity .3s var(--ease),transform .3s var(--ease);
+}
+.ul-wc:hover .ul-wc-cta{opacity:1;transform:translateY(0)}
+.ul-wc-stripe{
+  height:4px;
+  background:linear-gradient(90deg,var(--accent-lt),var(--accent));
+  background-size:200% 100%;
+  transition:background-position .5s ease;
+}
+.ul-wc:hover .ul-wc-stripe{background-position:100% 0}
+.ul-wc-body{padding:1.75rem;flex:1;display:flex;flex-direction:column}
+.ul-wc-tag{font-size:.68rem;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--accent-lt);opacity:.85;margin-bottom:.9rem}
+.ul-wc-title{font-family:var(--serif);font-size:1.05rem;font-weight:700;color:#fff;margin-bottom:.55rem;line-height:1.3}
+.ul-wc-desc{font-size:.86rem;color:rgba(210,220,240,.55);line-height:1.62;margin-bottom:1.25rem}
+.ul-wc-metric{
+  display:flex;align-items:baseline;gap:.4rem;
+  padding:.75rem 1rem;
+  background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.08);
+  border-radius:8px;transition:background .3s,border-color .3s;
+  margin-top:auto;
+}
+.ul-wc:hover .ul-wc-metric{background:rgba(110,143,245,.15);border-color:rgba(110,143,245,.25)}
+.ul-wc-num{font-family:var(--serif);font-size:1.6rem;font-weight:700;color:var(--accent-lt)}
+.ul-wc-meta{font-size:.78rem;color:rgba(210,220,240,.48);line-height:1.3}
+.ul-work-dots{display:flex;align-items:center;justify-content:center;gap:.45rem;margin-top:1.75rem}
+.ul-work-dot{
+  width:7px;height:7px;border-radius:50%;
+  background:rgba(255,255,255,.22);
+  transition:background .3s,width .3s,border-radius .3s;
+  border:none;padding:0;cursor:pointer;
+}
+.ul-work-dot.active{width:22px;border-radius:4px;background:var(--accent-lt)}
+
+/* ─── WORK FILTERS ─── */
+.ul-work-filters{display:flex;gap:.55rem;flex-wrap:wrap;margin-bottom:1.75rem}
+.ul-wf-pill{
+  background:transparent;border:1px solid rgba(255,255,255,.18);
+  color:rgba(255,255,255,.55);font-size:.7rem;font-weight:700;
+  letter-spacing:.09em;text-transform:uppercase;
+  padding:.4rem 1rem;border-radius:100px;cursor:pointer;
+  transition:all .2s;font-family:var(--sans);
+}
+.ul-wf-pill:hover{border-color:rgba(255,255,255,.4);color:#fff}
+.ul-wf-pill.active{background:var(--accent);border-color:var(--accent);color:#fff}
+
+/* ─── ABOUT ─── */
+#ul-about{background:#fff}
+.ul-about-wrap{
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:5rem;align-items:start;max-width:1080px;
+}
+.ul-about-vis{position:relative}
+.ul-about-img{
+  width:100%;aspect-ratio:4/5;background:var(--off);
+  border-radius:var(--r-lg);overflow:hidden;position:relative;
+  box-shadow:var(--sh-lg);
+}
+.ul-about-img-inner{
+  width:100%;height:100%;
+}
+.ul-about-img-inner img{
+  width:100%;height:100%;
+  object-fit:cover;object-position:center 30%;
+  display:block;
+  filter:grayscale(100%) contrast(1.05);
+  transition:filter .5s var(--ease),transform .6s var(--ease);
+}
+.ul-about-img:hover .ul-about-img-inner img{
+  filter:grayscale(80%) contrast(1.05);
+  transform:scale(1.025);
+}
+.ul-about-badge{
+  position:absolute;bottom:-1.25rem;right:-1.25rem;
+  background:var(--accent);color:#fff;
+  border-radius:var(--r);padding:1.1rem 1.4rem;
+  box-shadow:var(--sh-lg);
+}
+.ul-ab-num{font-family:var(--serif);font-size:1.9rem;font-weight:700;line-height:1}
+.ul-ab-lbl{font-size:.72rem;opacity:.85;margin-top:.15rem}
+
+.ul-about-stats{display:grid;grid-template-columns:1fr 1fr;gap:.9rem;margin-top:1.75rem}
+.ul-astat{background:var(--off);border-radius:var(--r);padding:.9rem 1.1rem}
+.ul-astat-n{font-family:var(--serif);font-size:1.45rem;font-weight:700;color:var(--accent)}
+.ul-astat-l{font-size:.78rem;color:var(--ink-mid);margin-top:.1rem}
+
+.ul-about-text .ul-h2{margin-bottom:1.1rem}
+.ul-about-text p{font-size:.975rem;line-height:1.78;color:var(--ink-mid);margin-bottom:.9rem}
+.ul-about-text p:last-of-type{margin-bottom:0}
+.ul-about-text strong{color:var(--ink);font-weight:600}
+/* credentials strip */
+.ul-creds{margin-top:1.5rem;padding-top:1.25rem;border-top:1px solid rgba(13,20,34,.07)}
+.ul-cred-label{font-size:.6rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-soft);display:block;margin-bottom:.55rem}
+.ul-cred-list{display:flex;align-items:center;gap:.5rem;flex-wrap:wrap}
+.ul-cred{font-size:.8rem;font-weight:600;color:var(--ink-mid)}
+.ul-cred-sep{color:var(--ink-soft);font-size:.75rem}
+.ul-philosophy{
+  margin-top:1.75rem;padding:1.4rem 1.5rem;
+  background:var(--off-2);border-radius:var(--r);
+  border-left:3px solid var(--accent);
+}
+.ul-philosophy p{font-size:.93rem;color:var(--ink);font-style:italic;margin-bottom:0!important;line-height:1.65}
+.ul-linkedin-btn{
+  display:inline-flex;align-items:center;gap:.55rem;
+  margin-top:1.5rem;
+  padding:.65rem 1.25rem;
+  border-radius:100px;
+  border:1.5px solid rgba(13,20,34,.14);
+  color:var(--ink-mid);
+  font-size:.85rem;font-weight:500;
+  transition:all .25s var(--ease);
+  background:#fff;
+}
+.ul-linkedin-btn svg{color:#0A66C2;flex-shrink:0}
+.ul-linkedin-btn:hover{
+  background:#0A66C2;color:#fff;
+  border-color:#0A66C2;
+  transform:translateY(-2px);
+  box-shadow:0 6px 20px rgba(10,102,194,.25);
+}
+.ul-linkedin-btn:hover svg{color:#fff}
+
+/* ─── TESTIMONIALS ─── */
+#ul-testimonials{background:var(--off)}
+.ul-test-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem}
+.ul-tc{
+  background:#fff;border-radius:var(--r-lg);padding:2rem 1.75rem;
+  border:1px solid rgba(13,20,34,.07);box-shadow:var(--sh-sm);
+  display:flex;flex-direction:column;
+  transition:opacity .55s ease,box-shadow .35s var(--ease),transform .35s var(--ease);
+}
+.ul-tc.fading{opacity:0;pointer-events:none}
+.ul-tc:hover{box-shadow:var(--sh-md);transform:translateY(-4px)}
+.ul-tc-mark{
+  font-family:var(--serif);font-size:4rem;line-height:.7;
+  color:var(--accent);opacity:.12;margin-bottom:.5rem;
+  font-weight:700;user-select:none;
+}
+.ul-tc-quote{font-size:.925rem;line-height:1.75;color:var(--ink-mid);font-style:italic;flex:1;margin-bottom:1.5rem}
+.ul-tc-attr{padding-top:1.1rem;border-top:1px solid rgba(13,20,34,.07);display:flex;flex-direction:column;gap:.2rem}
+.ul-tc-company{font-size:.68rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--accent)}
+.ul-tc-role{font-size:.78rem;color:var(--ink-soft)}
+.ul-test-nav{display:flex;justify-content:center;align-items:center;gap:.6rem;margin-top:2rem}
+.ul-test-pip{width:8px;height:8px;border-radius:50%;background:rgba(13,20,34,.15);border:none;cursor:pointer;padding:0;transition:background .3s,transform .3s}
+.ul-test-pip.active{background:var(--accent);transform:scale(1.3)}
+
+/* ─── CTA ─── */
+#ul-contact{
+  background:var(--ink);
+  padding:8rem 5%;position:relative;overflow:hidden;
+}
+/* reuse orb-field inside dark bg */
+#ul-contact .ul-orb-blue  {background:radial-gradient(circle,rgba(61,95,224,.22) 0%,transparent 70%)}
+#ul-contact .ul-orb-indigo{background:radial-gradient(circle,rgba(110,143,245,.15) 0%,transparent 70%)}
+.ul-cta-wrap{position:relative;z-index:2;display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:start;max-width:1100px}
+.ul-cta-inner{}
+#ul-contact .ul-section-label{color:rgba(110,143,245,.8)}
+#ul-contact .ul-h2{color:#fff}
+.ul-cta-body{font-size:1.05rem;line-height:1.78;color:rgba(210,220,240,.75);margin-bottom:2.5rem;max-width:520px}
+.ul-cta-btns{display:flex;align-items:center;gap:1.25rem;flex-wrap:wrap}
+.ul-btn-white{
+  background:#fff;color:var(--accent-dk);
+  padding:.875rem 2rem;border-radius:100px;
+  font-size:.9rem;font-weight:700;
+  display:inline-flex;align-items:center;gap:.5rem;
+  box-shadow:0 6px 24px rgba(0,0,0,.2);
+  transition:background .2s,transform .2s,box-shadow .2s;
+}
+.ul-btn-white:hover{background:var(--off);transform:translateY(-2px);box-shadow:0 10px 32px rgba(0,0,0,.28)}
+.ul-btn-ghost{
+  color:rgba(210,220,240,.65);font-size:.875rem;font-weight:500;
+  display:inline-flex;align-items:center;gap:.35rem;
+  transition:color .2s;
+}
+.ul-btn-ghost span{transition:transform .2s}
+.ul-btn-ghost:hover{color:#fff}
+.ul-btn-ghost:hover span{transform:translateX(4px)}
+.ul-cta-note{margin-top:1.5rem;font-size:.78rem;color:rgba(210,220,240,.38)}
+/* ─── CONTACT FORM ─── */
+.ul-form-panel{
+  background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);
+  border-radius:var(--r-lg);padding:2.25rem;
+}
+.ul-form-panel h3{font-family:var(--serif);font-size:1.35rem;font-weight:600;color:#fff;margin-bottom:.4rem}
+.ul-form-panel p{font-size:.85rem;color:rgba(210,220,240,.55);margin-bottom:1.5rem;line-height:1.6}
+.ul-form-row{display:flex;gap:.75rem;margin-bottom:.75rem}
+.ul-form-field{display:flex;flex-direction:column;gap:.35rem;flex:1}
+.ul-form-field label{font-size:.72rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:rgba(210,220,240,.5)}
+.ul-form-field input,.ul-form-field textarea,.ul-form-field select{
+  background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);
+  border-radius:var(--r);padding:.7rem 1rem;
+  color:#fff;font-size:.88rem;font-family:var(--sans);
+  outline:none;width:100%;
+  transition:border-color .2s,background .2s;
+}
+.ul-form-field input::placeholder,.ul-form-field textarea::placeholder{color:rgba(255,255,255,.25)}
+.ul-form-field input:focus,.ul-form-field textarea:focus,.ul-form-field select:focus{
+  border-color:rgba(110,143,245,.6);background:rgba(255,255,255,.1);
+}
+.ul-form-field textarea{resize:vertical;min-height:100px}
+.ul-form-submit{
+  width:100%;margin-top:1.1rem;
+  background:var(--accent);color:#fff;
+  padding:.8rem 1.5rem;border-radius:100px;border:none;
+  font-size:.88rem;font-weight:600;font-family:var(--sans);
+  cursor:pointer;transition:background .2s,transform .2s;
+}
+.ul-form-submit:hover{background:var(--accent-dk);transform:translateY(-1px)}
+.ul-form-note{font-size:.7rem;color:rgba(210,220,240,.3);text-align:center;margin-top:.75rem}
+.ul-form-submit:disabled{opacity:.55;cursor:not-allowed;transform:none}
+/* turnstile */
+.ul-turnstile-wrap{margin:.85rem 0 .25rem}
+.cf-turnstile{border-radius:var(--r);overflow:hidden}
+/* form error */
+.ul-form-error{font-size:.78rem;color:#f87171;margin-top:.5rem;text-align:center;display:none}
+.ul-form-error.show{display:block}
+/* success state */
+.ul-form-success{display:none;text-align:center;padding:2.5rem 1rem}
+.ul-form-success.show{display:block}
+.ul-form-success-icon{width:52px;height:52px;border-radius:50%;background:rgba(52,211,153,.15);
+  display:flex;align-items:center;justify-content:center;margin:0 auto 1.25rem}
+.ul-form-success-icon svg{stroke:#34d399}
+.ul-form-success h4{font-family:var(--serif);font-size:1.3rem;font-weight:700;color:#fff;margin-bottom:.6rem}
+.ul-form-success p{font-size:.88rem;color:rgba(210,220,240,.6);line-height:1.65}
+@media(max-width:960px){.ul-cta-wrap{grid-template-columns:1fr;gap:3rem}}
+
+/* ─── FOOTER ─── */
+#ul-footer{
+  background:#070A12;
+  padding:2.5rem 5%;
+  display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;
+  border-top:1px solid rgba(255,255,255,.04);
+}
+.ul-foot-logo{font-family:var(--serif);font-size:1.05rem;font-weight:700;color:#fff;display:flex;align-items:center;gap:.4rem}
+.ul-foot-logo span{color:var(--accent-lt)}
+.ul-foot-links{display:flex;gap:1.5rem}
+.ul-foot-links a{font-size:.8rem;color:rgba(210,220,240,.4);transition:color .2s}
+.ul-foot-links a:hover{color:#fff}
+.ul-foot-copy{font-size:.76rem;color:rgba(210,220,240,.28)}
+
+/* ─── KEYFRAMES ─── */
+@keyframes fadeUp{to{opacity:1;transform:translateY(0)}}
+@keyframes fadeIn {to{opacity:1}}
+
+/* ─── RESPONSIVE ─── */
+@media(max-width:960px){
+  .ul-hero-vis{display:none}
+  .ul-hero-content{max-width:100%}
+  .ul-zr{grid-template-columns:1fr;gap:1rem}
+  .ul-zr-num{font-size:1.8rem;padding-top:0}
+  .ul-zr-tags{flex-direction:row;flex-wrap:wrap}
+  .ul-about-wrap{grid-template-columns:1fr}
+  .ul-about-vis{display:none}
+}
+@media(max-width:620px){
+  .ul-nav-links{display:none}
+  .ul-section{padding:4.5rem 5%}
+  .ul-zones-grid{grid-template-columns:1fr}
+  .ul-hero-btns{flex-direction:column;align-items:flex-start}
+  .ul-work-hdr{flex-direction:column;align-items:flex-start}
+  .ul-compare-hdr,.ul-compare-row{grid-template-columns:1fr;padding:.8rem 1.1rem}
+  .ul-ch-divider,.ul-cr-divider{display:none}
+  .ul-ch-good,.ul-cr-good{padding-left:0;border-top:1px solid rgba(13,20,34,.06);padding-top:.65rem;margin-top:.35rem}
+  .ul-pc-accent{flex-direction:column;gap:1rem;text-align:center}
+}
+</style>
+</head>
+<body>
+
+<!-- ── Cursor ── -->
+<div id="ul-dot"></div>
+<div id="ul-ring"></div>
+
+<!-- ══════════════════════════════════════
+     NAV
+══════════════════════════════════════ -->
+<nav id="ul-nav">
+  <a href="#" class="ul-logo">
+    <svg class="ul-logo-mark" viewBox="0 0 36 36" fill="none">
+      <rect x="4" y="4" width="28" height="28" rx="1.5" stroke="#3D5FE0" stroke-width="1.5" fill="none" opacity=".2"/>
+      <rect x="10" y="10" width="16" height="16" rx="1.5" stroke="#3D5FE0" stroke-width="1.5" fill="none" opacity=".4"/>
+      <rect x="16" y="16" width="4" height="4" rx="1" fill="#3D5FE0"/>
+    </svg>
+    <span class="ul-logo-text">before you <strong>build</strong></span>
+  </a>
+  <ul class="ul-nav-links">
+    <li><a href="#ul-problem">Why it matters</a></li>
+    <li><a href="#ul-zones">Services</a></li>
+    <li><a href="#ul-work">Work</a></li>
+    <li><a href="#ul-about">About</a></li>
+    <li><a href="#ul-contact" class="ul-nav-cta">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- ══════════════════════════════════════
+     HERO
+══════════════════════════════════════ -->
+<section id="ul-hero">
+
+  <!-- animated orb background -->
+  <div class="ul-orb-field">
+    <div class="ul-dots"></div>
+    <div class="ul-orb ul-orb-blue  anim-a" style="width:640px;height:640px;top:-140px;right:-80px"></div>
+    <div class="ul-orb ul-orb-indigo anim-b" style="width:420px;height:420px;bottom:-60px;left:18%"></div>
+    <div class="ul-orb ul-orb-soft   anim-c" style="width:320px;height:320px;top:35%;left:-80px"></div>
+  </div>
+
+  <div class="ul-hero-content">
+    <div class="ul-eyebrow">
+      <span>Customer Research</span>
+    </div>
+    <h1 class="ul-h1">
+      Assumption to confidence —<br>
+      <span class="ul-h1-nowrap"><em>evidence-driven every step.</em></span>
+    </h1>
+    <p class="ul-sub">
+      Customer research for <span id="ul-word">product teams</span> who need to know before they commit. Moving teams from "we think" to "we know."
+    </p>
+    <p class="ul-hero-model">
+      Embedded research partner
+      <span class="ul-hero-model-dot"></span>
+      Flexible retainer
+      <span class="ul-hero-model-dot"></span>
+      Built around your team's rhythm
+    </p>
+    <div class="ul-hero-btns">
+      <a href="#ul-contact" class="ul-btn-primary">
+        Get in Touch
+        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+      <a href="#ul-work" class="ul-btn-text">See the work <span>→</span></a>
+    </div>
+  </div>
+
+  <!-- hero visual: lens SVG + floating stat cards -->
+  <div class="ul-hero-vis">
+    <svg class="ul-lens-svg" viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <!-- outer glow ring -->
+      <circle cx="200" cy="200" r="185" stroke="rgba(61,95,224,.06)" stroke-width="1" fill="rgba(61,95,224,.02)"/>
+      <circle cx="200" cy="200" r="170" stroke="rgba(61,95,224,.14)" stroke-width="1.5"/>
+      <!-- spinning arc A -->
+      <g class="ul-arc-cw">
+        <path d="M200 32 A168 168 0 0 1 354 290" stroke="rgba(61,95,224,.55)" stroke-width="2" stroke-dasharray="14 7" fill="none" stroke-linecap="round"/>
+      </g>
+      <!-- spinning arc B -->
+      <g class="ul-arc-ccw">
+        <path d="M200 368 A168 168 0 0 1 46 110" stroke="rgba(110,143,245,.40)" stroke-width="1.5" stroke-dasharray="7 16" fill="none" stroke-linecap="round"/>
+      </g>
+      <!-- inner lens -->
+      <circle cx="200" cy="200" r="100" stroke="rgba(61,95,224,.28)" stroke-width="2" class="ul-lens-pulse"/>
+      <circle cx="200" cy="200" r="60" fill="rgba(61,95,224,.08)" stroke="rgba(61,95,224,.38)" stroke-width="2"/>
+      <!-- iris -->
+      <circle cx="200" cy="200" r="28" fill="rgba(61,95,224,.18)" stroke="var(--accent)" stroke-width="2.5"/>
+      <circle cx="200" cy="200" r="10" fill="var(--accent)" opacity=".9"/>
+      <!-- crosshair -->
+      <line x1="200" y1="30"  x2="200" y2="70"  stroke="rgba(61,95,224,.3)" stroke-width="1"/>
+      <line x1="200" y1="330" x2="200" y2="370" stroke="rgba(61,95,224,.3)" stroke-width="1"/>
+      <line x1="30"  y1="200" x2="70"  y2="200" stroke="rgba(61,95,224,.3)" stroke-width="1"/>
+      <line x1="330" y1="200" x2="370" y2="200" stroke="rgba(61,95,224,.3)" stroke-width="1"/>
+      <!-- corner brackets -->
+      <path d="M62 62 L62 82 M62 62 L82 62"   stroke="rgba(61,95,224,.45)" stroke-width="1.8" stroke-linecap="round"/>
+      <path d="M338 62 L338 82 M338 62 L318 62" stroke="rgba(61,95,224,.45)" stroke-width="1.8" stroke-linecap="round"/>
+      <path d="M62 338 L62 318 M62 338 L82 338"  stroke="rgba(61,95,224,.45)" stroke-width="1.8" stroke-linecap="round"/>
+      <path d="M338 338 L338 318 M338 338 L318 338" stroke="rgba(61,95,224,.45)" stroke-width="1.8" stroke-linecap="round"/>
+      <!-- tick marks -->
+      <line x1="200" y1="94"  x2="200" y2="100" stroke="rgba(61,95,224,.4)" stroke-width="1.5"/>
+      <line x1="200" y1="300" x2="200" y2="306" stroke="rgba(61,95,224,.4)" stroke-width="1.5"/>
+      <line x1="94"  y1="200" x2="100" y2="200" stroke="rgba(61,95,224,.4)" stroke-width="1.5"/>
+      <line x1="300" y1="200" x2="306" y2="200" stroke="rgba(61,95,224,.4)" stroke-width="1.5"/>
+    </svg>
+
+    <!-- Floating stat cards -->
+    <div class="ul-fsc ul-fsc-1">
+      <div class="ul-fsc-n" data-count="66" data-suffix="%">66%</div>
+      <div class="ul-fsc-l">Drop in customer exit rate<br>after a single research sprint</div>
+      <div class="ul-fsc-bar"><span style="width:66%"></span></div>
+    </div>
+    <div class="ul-fsc ul-fsc-2">
+      <div class="ul-fsc-n" data-count="3" data-suffix="×">3×</div>
+      <div class="ul-fsc-l">Active user growth<br>post-CX redesign</div>
+      <div class="ul-fsc-bar"><span style="width:90%"></span></div>
+    </div>
+    <div class="ul-fsc ul-fsc-3">
+      <div class="ul-fsc-n" data-count="10" data-suffix="+">10+</div>
+      <div class="ul-fsc-l">Industries served<br>from startups to enterprise</div>
+      <div class="ul-fsc-bar"><span style="width:75%"></span></div>
+    </div>
+  </div>
+
+</section>
+
+<!-- ══════════════════════════════════════
+     TICKER
+══════════════════════════════════════ -->
+<div id="ul-ticker" aria-hidden="true">
+  <div class="ul-ticker-track">
+    <span class="ul-ticker-item">Evidence-Based Strategy</span>
+    <span class="ul-ticker-item ul-ticker-industry">FinTech</span>
+    <span class="ul-ticker-item">Customer Discovery</span>
+    <span class="ul-ticker-item ul-ticker-industry">Retail</span>
+    <span class="ul-ticker-item">De-Risk Every Decision</span>
+    <span class="ul-ticker-item ul-ticker-industry">Travel</span>
+    <span class="ul-ticker-item">CX & Product Intelligence</span>
+    <span class="ul-ticker-item ul-ticker-industry">Real Estate</span>
+    <span class="ul-ticker-item">Strategic Clarity</span>
+    <span class="ul-ticker-item ul-ticker-industry">Technology</span>
+    <span class="ul-ticker-item">Founder-Led Consulting</span>
+    <span class="ul-ticker-item ul-ticker-industry">Healthcare</span>
+    <span class="ul-ticker-item">From Startups to Enterprise</span>
+    <span class="ul-ticker-item ul-ticker-industry">E-Commerce</span>
+    <!-- duplicate for seamless loop -->
+    <span class="ul-ticker-item">Evidence-Based Strategy</span>
+    <span class="ul-ticker-item ul-ticker-industry">FinTech</span>
+    <span class="ul-ticker-item">Customer Discovery</span>
+    <span class="ul-ticker-item ul-ticker-industry">Retail</span>
+    <span class="ul-ticker-item">De-Risk Every Decision</span>
+    <span class="ul-ticker-item ul-ticker-industry">Travel</span>
+    <span class="ul-ticker-item">CX & Product Intelligence</span>
+    <span class="ul-ticker-item ul-ticker-industry">Real Estate</span>
+    <span class="ul-ticker-item">Strategic Clarity</span>
+    <span class="ul-ticker-item ul-ticker-industry">Technology</span>
+    <span class="ul-ticker-item">Founder-Led Consulting</span>
+    <span class="ul-ticker-item ul-ticker-industry">Healthcare</span>
+    <span class="ul-ticker-item">From Startups to Enterprise</span>
+    <span class="ul-ticker-item ul-ticker-industry">E-Commerce</span>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     PROBLEM SECTION
+══════════════════════════════════════ -->
+<section id="ul-problem" class="ul-section">
+
+  <div class="ul-orb-field" aria-hidden="true">
+    <div class="ul-orb ul-orb-soft anim-c" style="width:400px;height:400px;top:-80px;right:-60px;opacity:.5"></div>
+  </div>
+
+  <div class="ul-hdr ul-rv">
+    <p class="ul-section-label">The real cost of moving without evidence</p>
+    <h2 class="ul-h2">Most big decisions move forward on gut instinct.<br>The ones that don't, <em>win.</em></h2>
+    <p class="ul-lead">You're asked to commit — build it, launch it, invest in it. But the information you're deciding on is incomplete, assumed, or outdated.</p>
+    <p class="ul-lead" style="margin-top:1.1rem">Fast decisions become permanent foundations. By the time you notice the mistake, the cost to fix it is ten times what it would have been.</p>
+    <p class="ul-lead" style="margin-top:1.1rem">Research doesn't promise certainty — that's not what it's for. It reduces uncertainty. Enough to catch the costly mistake before it ships. Enough to move forward with evidence instead of instinct. That's the only goal.</p>
+  </div>
+
+  <!-- Scannable comparison table -->
+  <div class="ul-compare ul-rv d1">
+    <div class="ul-compare-hdr">
+      <div class="ul-ch-bad">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
+        Without evidence
+      </div>
+      <div class="ul-ch-divider"></div>
+      <div class="ul-ch-good">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><polyline points="9 12 11 14 15 10"/></svg>
+        With Before You Build
+      </div>
+    </div>
+    <div class="ul-compare-row">
+      <div class="ul-cr-bad">Teams build features customers don't need</div>
+      <div class="ul-cr-divider"></div>
+      <div class="ul-cr-good">You know what to build — before you build it</div>
+    </div>
+    <div class="ul-compare-row">
+      <div class="ul-cr-bad">Launch misses the market — nobody saw it coming</div>
+      <div class="ul-cr-divider"></div>
+      <div class="ul-cr-good">Strategy grounded in real market signals</div>
+    </div>
+    <div class="ul-compare-row">
+      <div class="ul-cr-bad">Leadership debates data that doesn't exist</div>
+      <div class="ul-cr-divider"></div>
+      <div class="ul-cr-good">Leadership aligns fast — the evidence is clear</div>
+    </div>
+    <div class="ul-compare-row">
+      <div class="ul-cr-bad">Major investment made on the wrong problem</div>
+      <div class="ul-cr-divider"></div>
+      <div class="ul-cr-good">Investment goes toward the right problem, at the right time</div>
+    </div>
+  </div>
+
+  <div class="ul-pc ul-pc-accent ul-rv d2">
+    <div class="ul-pac-text">"The companies that pause to understand their customer before they commit — consistently outperform those that don't."</div>
+    <div class="ul-pac-stat">
+      <div class="ul-pac-num" data-count="42" data-suffix="%">42%</div>
+      <div class="ul-pac-label">of startups fail because there was no market need — the most preventable cause</div>
+      <div style="font-size:.6rem;opacity:.5;margin-top:.4rem;letter-spacing:.04em">— <a href="https://www.cbinsights.com/research/report/startup-failure-reasons-top/" target="_blank" rel="noopener" style="color:inherit;text-decoration:underline;text-underline-offset:2px">CB Insights</a></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     SERVICES / ZONES
+══════════════════════════════════════ -->
+<section id="ul-zones" class="ul-section" style="background:#fff">
+
+  <div class="ul-hdr ul-rv">
+    <p class="ul-section-label">How we work</p>
+    <h2 class="ul-h2">Four ways leaders work with Before You Build</h2>
+    <p class="ul-lead">Whether you're about to make a major call, trying to understand what's breaking, building the capability to keep knowing, or navigating what AI means for your users — we meet you where you are.</p>
+  </div>
+
+  <div class="ul-zones-list">
+
+    <!-- Zone 01 — De-Risk -->
+    <div class="ul-zr ul-rv d1">
+      <span class="ul-zr-num">01</span>
+      <div class="ul-zr-body">
+        <div class="ul-zr-head">
+          <div class="ul-zr-icon">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg>
+          </div>
+          <span class="ul-zr-label">Zone 01</span>
+        </div>
+        <h3 class="ul-zr-title">De-Risk Before a Dollar Is Spent</h3>
+        <p class="ul-zr-desc">Before you sign off on a roadmap, a product, or a significant investment — get clarity on whether you're solving the right problem. We build the evidence so you can move with confidence, not assumptions.</p>
+        <div class="ul-zr-when">
+          <span class="ul-zr-when-label">This is for you if</span>
+          <div class="ul-zr-when-items">
+            <span class="ul-zr-when-item">You're about to commit budget and want evidence before you do</span>
+            <span class="ul-zr-when-item">Your team is debating direction but can't agree on what customers actually want</span>
+            <span class="ul-zr-when-item">Leadership needs more than a gut feeling to move forward</span>
+          </div>
+        </div>
+        <div class="ul-zr-tags">
+          <span class="ul-zr-tag">Evidence before commitment</span>
+          <span class="ul-zr-tag">Market clarity</span>
+          <span class="ul-zr-tag">Decision confidence</span>
+        </div>
+      </div>
+      <div class="ul-zr-q">
+        <span class="ul-zr-q-label">Ask yourself</span>
+        <p class="ul-zr-q-text">"Are we solving the right problem — or just the loudest one in the room?"</p>
+      </div>
+    </div>
+
+    <!-- Zone 02 — AI -->
+    <div class="ul-zr ul-rv d2">
+      <span class="ul-zr-num">02</span>
+      <div class="ul-zr-body">
+        <div class="ul-zr-head">
+          <div class="ul-zr-icon">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="3"/><path d="M6.8 20a6 6 0 0 1 10.4 0"/><circle cx="19" cy="6" r="2"/><path d="M15 7.5a4 4 0 0 1 3.2-.8"/><circle cx="5" cy="6" r="2"/><path d="M9 7.5A4 4 0 0 0 5.8 6.7"/><path d="M12 11v2"/><path d="M10 17h4"/></svg>
+          </div>
+          <span class="ul-zr-label">Zone 02</span>
+        </div>
+        <h3 class="ul-zr-title">The Human Side of AI</h3>
+        <p class="ul-zr-desc">AI is improving fast. But the gap between what it <em>can</em> do and what people actually <em>do</em> with it is where value gets made or lost. We study real-world AI interactions: where it works, where distrust builds friction, and why people adopt some tools while quietly working around others.</p>
+        <p class="ul-zr-desc" style="margin-top:.75rem">We also answer the harder question: where <em>should</em> AI be applied — and where does human judgment still belong? Not every decision gets delegated to a model. Research tells you which ones do.</p>
+        <div class="ul-zr-when">
+          <span class="ul-zr-when-label">This is for you if</span>
+          <div class="ul-zr-when-items">
+            <span class="ul-zr-when-item">You've launched AI tools but adoption is flat or lower than expected — and you need to understand why</span>
+            <span class="ul-zr-when-item">You're deciding which parts of your process to hand to AI — and need evidence for where human judgment still matters</span>
+            <span class="ul-zr-when-item">Leadership is asking what this AI investment will actually do for your teams</span>
+          </div>
+        </div>
+        <div class="ul-zr-tags">
+          <span class="ul-zr-tag">Human-AI interaction</span>
+          <span class="ul-zr-tag">AI opportunity mapping</span>
+          <span class="ul-zr-tag">Adoption &amp; trust research</span>
+          <span class="ul-zr-tag">AI workflow evaluation</span>
+        </div>
+      </div>
+      <div class="ul-zr-q">
+        <span class="ul-zr-q-label">Ask yourself</span>
+        <p class="ul-zr-q-text">"Do we actually know which decisions should go to AI — and which ones still need a human to connect the dots?"</p>
+      </div>
+    </div>
+
+    <!-- Zone 03 — Diagnose -->
+    <div class="ul-zr ul-rv d3">
+      <span class="ul-zr-num">03</span>
+      <div class="ul-zr-body">
+        <div class="ul-zr-head">
+          <div class="ul-zr-icon">
+            <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35M11 8v6M8 11h6"/></svg>
+          </div>
+          <span class="ul-zr-label">Zone 03</span>
+        </div>
+        <h3 class="ul-zr-title">Find What's Actually Breaking</h3>
+        <p class="ul-zr-desc">Numbers are down, customers are leaving, or the product isn't landing — but your team can't agree on why. We go directly to the source and bring back a clear picture of what's happening and where to focus.</p>
+        <div class="ul-zr-when">
+          <span class="ul-zr-when-label">This is for you if</span>
+          <div class="ul-zr-when-items">
+            <span class="ul-zr-when-item">Metrics are declining and your team has three different theories about why</span>
+            <span class="ul-zr-when-item">You're losing customers but don't have a clear picture of the moment it breaks down</span>
+            <span class="ul-zr-when-item">Leadership is asking for answers and the data alone isn't telling the full story</span>
+          </div>
+        </div>
+        <div class="ul-zr-tags">
+          <span class="ul-zr-tag">Root cause analysis</span>
+          <span class="ul-zr-tag">Churn diagnosis</span>
+          <span class="ul-zr-tag">Experience audit</span>
+        </div>
+      </div>
+      <div class="ul-zr-q">
+        <span class="ul-zr-q-label">Ask yourself</span>
+        <p class="ul-zr-q-text">"Do we know why customers are leaving — or are we still guessing?"</p>
+      </div>
+    </div>
+
+    <!-- Zone 04 — Build -->
+    <div class="ul-zr ul-rv d4">
+      <span class="ul-zr-num">04</span>
+      <div class="ul-zr-body">
+        <div class="ul-zr-head">
+          <div class="ul-zr-icon">
+            <svg viewBox="0 0 24 24"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>
+          </div>
+          <span class="ul-zr-label">Zone 04</span>
+        </div>
+        <h3 class="ul-zr-title">Build a Customer-Led Organization</h3>
+        <p class="ul-zr-desc">For leaders who want to stop making decisions in the dark — permanently. We embed customer intelligence into how your team thinks, plans, and prioritizes, so every initiative starts with evidence.</p>
+        <div class="ul-zr-when">
+          <span class="ul-zr-when-label">This is for you if</span>
+          <div class="ul-zr-when-items">
+            <span class="ul-zr-when-item">Decisions in your org are driven by instinct, seniority, or whoever speaks loudest</span>
+            <span class="ul-zr-when-item">You want customer insight embedded in how your team plans — not bolted on at the end</span>
+            <span class="ul-zr-when-item">You're building the case internally for a more evidence-first culture</span>
+          </div>
+        </div>
+        <div class="ul-zr-tags">
+          <span class="ul-zr-tag">CX strategy</span>
+          <span class="ul-zr-tag">Research capability</span>
+          <span class="ul-zr-tag">Org alignment</span>
+        </div>
+      </div>
+      <div class="ul-zr-q">
+        <span class="ul-zr-q-label">Ask yourself</span>
+        <p class="ul-zr-q-text">"Is your team making decisions based on evidence — or on instinct and seniority?"</p>
+      </div>
+    </div>
+
+  </div>
+
+  <p class="ul-zones-nudge ul-rv">Not sure which fits your situation? <a href="#ul-contact" class="ul-zones-nudge-link">Tell us about your needs →</a></p>
+
+</section>
+
+<!-- ══════════════════════════════════════
+     WORK / CASE STUDIES
+══════════════════════════════════════ -->
+<section id="ul-work" class="ul-section">
+
+  <div class="ul-orb-field" aria-hidden="true">
+    <div class="ul-orb ul-orb-indigo anim-b" style="width:380px;height:380px;bottom:-80px;left:-60px;opacity:.45"></div>
+  </div>
+
+  <!-- Header + nav arrows -->
+  <div class="ul-work-hdr ul-rv">
+    <div>
+      <p class="ul-section-label">Selected work</p>
+      <h2 class="ul-h2">Evidence that moves organizations forward</h2>
+    </div>
+    <div class="ul-work-nav">
+      <button class="ul-wnav-btn" id="ul-wprev" aria-label="Previous" disabled>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+      </button>
+      <span class="ul-wnav-count" id="ul-wnav-count">1 / 10</span>
+      <button class="ul-wnav-btn" id="ul-wnext" aria-label="Next">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- Filter pills -->
+  <div class="ul-work-filters" id="ul-work-filters">
+    <button class="ul-wf-pill active" data-filter="all">All</button>
+    <button class="ul-wf-pill" data-filter="fintech">FinTech</button>
+    <button class="ul-wf-pill" data-filter="retail">Retail</button>
+    <button class="ul-wf-pill" data-filter="real-estate">Real Estate</button>
+    <button class="ul-wf-pill" data-filter="methodology">Methodology</button>
+    <button class="ul-wf-pill" data-filter="travel">Travel</button>
+  </div>
+
+  <!-- Carousel track -->
+  <div class="ul-work-track-wrap">
+    <div class="ul-work-track" id="ul-work-track">
+
+      <!-- 1: FinTech Onboarding -->
+      <a class="ul-wc" href="beforeyoubuild-case-fintech-onboarding.html" target="_blank" rel="noopener" data-cat="fintech">
+        <span class="ul-wc-cta">Read story →</span>
+        <div class="ul-wc-img"><img src="images/onboarding_exp_trading_platform_finance_cx.jpg" alt="Trading platform onboarding research" loading="lazy"/></div>
+        <div class="ul-wc-stripe"></div>
+        <div class="ul-wc-body">
+          <span class="ul-wc-tag">FinTech</span>
+          <h4 class="ul-wc-title">Onboarding was losing 87% of users before the product had a chance</h4>
+          <p class="ul-wc-desc">The team had written off an 87% exit rate as unavoidable compliance friction. It wasn't — and the real reasons had nothing to do with compliance.</p>
+          <div class="ul-wc-metric">
+            <span class="ul-wc-num">66%</span>
+            <span class="ul-wc-meta">reduction in onboarding exit rate after redesign</span>
+          </div>
+        </div>
+      </a>
+
+      <!-- 2: Retail Stylist Tool JTBD -->
+      <a class="ul-wc" href="beforeyoubuild-case-retail-stylist-tool.html" target="_blank" rel="noopener" data-cat="retail">
+        <span class="ul-wc-cta">Read story →</span>
+        <div class="ul-wc-img"><img src="images/stylist_tool_jtbd_retail_cx.jpg" alt="Retail stylist tool JTBD research" loading="lazy"/></div>
+        <div class="ul-wc-stripe"></div>
+        <div class="ul-wc-body">
+          <span class="ul-wc-tag">Retail · Internal Tool</span>
+          <h4 class="ul-wc-title">The stylist tool was built for stylists. It was missing the two things they actually needed.</h4>
+          <p class="ul-wc-desc">17% adoption on a tool built specifically for the people using it every day. Leadership was already weighing a full rebuild. Before they did, someone finally asked the stylists what was actually missing.</p>
+          <div class="ul-wc-metric">
+            <span class="ul-wc-num">3×</span>
+            <span class="ul-wc-meta">active users — 105 to 347 within a month of launch</span>
+          </div>
+        </div>
+      </a>
+
+      <!-- 3: Travel Packages -->
+      <a class="ul-wc" href="beforeyoubuild-case-travel-package-booking.html" target="_blank" rel="noopener" data-cat="travel">
+        <span class="ul-wc-cta">Read story →</span>
+        <div class="ul-wc-img"><img src="images/package_booking_traveller_cx.jpg" alt="Travel package booking research" loading="lazy"/></div>
+        <div class="ul-wc-stripe"></div>
+        <div class="ul-wc-body">
+          <span class="ul-wc-tag">Travel · Behavioural Analytics</span>
+          <h4 class="ul-wc-title">Two weeks post-launch. Users were finding it. Zero bookings.</h4>
+          <p class="ul-wc-desc">Behavioral data found what no one was looking for — a missing return path. One nav change. Bookings within a week.</p>
+          <div class="ul-wc-metric">
+            <span class="ul-wc-num">18%</span>
+            <span class="ul-wc-meta">repeat visits on day one of the fix</span>
+          </div>
+        </div>
+      </a>
+
+      <!-- 4: Inspiration Hub -->
+      <a class="ul-wc" href="beforeyoubuild-case-retail-inspiration-hub.html" target="_blank" rel="noopener" data-cat="retail">
+        <span class="ul-wc-cta">Read story →</span>
+        <div class="ul-wc-img"><img src="images/inspiration_hub_retail_cx_experience.jpg" alt="Retail inspiration hub research" loading="lazy"/></div>
+        <div class="ul-wc-stripe"></div>
+        <div class="ul-wc-body">
+          <span class="ul-wc-tag">Retail · Engagement</span>
+          <h4 class="ul-wc-title">Users were falling into a fashion rabbit hole. The app was making it worse.</h4>
+          <p class="ul-wc-desc">Users came looking for style inspiration and left overwhelmed. A diary study revealed the tension between browsing and deciding — and what it actually takes to bridge the two.</p>
+          <div class="ul-wc-metric">
+            <span class="ul-wc-num">19%</span>
+            <span class="ul-wc-meta">increase in time spent in-app within the first month</span>
+          </div>
+        </div>
+      </a>
+
+      <!-- 5: Rack Checkout -->
+      <a class="ul-wc" href="beforeyoubuild-case-retail-checkout.html" target="_blank" rel="noopener" data-cat="retail">
+        <span class="ul-wc-cta">Read story →</span>
+        <div class="ul-wc-img"><img src="images/checkout_exp_retail_cx.jpg" alt="Retail checkout experience research" loading="lazy"/></div>
+        <div class="ul-wc-stripe"></div>
+        <div class="ul-wc-body">
+          <span class="ul-wc-tag">Retail · Operations</span>
+          <h4 class="ul-wc-title">A brand new loyalty discount operation at checkout. Staff had never seen it before — and it showed.</h4>
+          <p class="ul-wc-desc">Loyalty discounts were hitting checkout for the first time. Testing with staff on live transactions — before a single customer touched it — found exactly what would have broken it on day one.</p>
+          <div class="ul-wc-metric">
+            <span class="ul-wc-num">4</span>
+            <span class="ul-wc-meta">critical friction points identified and resolved before rollout</span>
+          </div>
+        </div>
+      </a>
+
+      <!-- 6: WealthBar Dashboard -->
+      <a class="ul-wc" href="beforeyoubuild-case-fintech-investment-dashboard.html" target="_blank" rel="noopener" data-cat="fintech">
+        <span class="ul-wc-cta">Read story →</span>
+        <div class="ul-wc-img"><img src="images/investor_dashboard_exp_wealth_mgm_finance_cx.jpg" alt="Investor dashboard wealth management research" loading="lazy"/></div>
+        <div class="ul-wc-stripe"></div>
+        <div class="ul-wc-body">
+          <span class="ul-wc-tag">FinTech · Wealth Management</span>
+          <h4 class="ul-wc-title">Investors were logging into their dashboard and leaving more confused than before.</h4>
+          <p class="ul-wc-desc">Users were logging in, checking their numbers, and leaving more uncertain than before. The same frustration surfaced in annual surveys year after year — until someone asked why.</p>
+          <div class="ul-wc-metric">
+            <span class="ul-wc-num">35%</span>
+            <span class="ul-wc-meta">increase in dashboard engagement in first month</span>
+          </div>
+        </div>
+      </a>
+
+      <!-- 7: Ryokan -->
+      <a class="ul-wc" href="beforeyoubuild-case-hospitality-ryokan.html" target="_blank" rel="noopener" data-cat="travel">
+        <span class="ul-wc-cta">Read story →</span>
+        <div class="ul-wc-img"><img src="images/ryokan_travel_exp.jpg" alt="Ryokan travel experience research" loading="lazy"/></div>
+        <div class="ul-wc-stripe"></div>
+        <div class="ul-wc-body">
+          <span class="ul-wc-tag">Travel · International</span>
+          <h4 class="ul-wc-title">The listing said "breakfast included." It was a 30-course seasonal Kaiseki ceremony.</h4>
+          <p class="ul-wc-desc">A 30-course seasonal Kaiseki ceremony listed as "breakfast included." When travelers from three countries explained what they saw, the gap between experience and expectation turned out to be far bigger than a translation problem.</p>
+          <div class="ul-wc-metric">
+            <span class="ul-wc-num">27%</span>
+            <span class="ul-wc-meta">increase in meal plan clicks and interactions</span>
+          </div>
+        </div>
+      </a>
+
+      <!-- 8: Rack Loyalty -->
+      <a class="ul-wc" href="beforeyoubuild-case-retail-loyalty.html" target="_blank" rel="noopener" data-cat="retail">
+        <span class="ul-wc-cta">Read story →</span>
+        <div class="ul-wc-img"><img src="images/loyalty_exp_retail_cx.jpg" alt="Retail loyalty experience research" loading="lazy"/></div>
+        <div class="ul-wc-stripe"></div>
+        <div class="ul-wc-body">
+          <span class="ul-wc-tag">Retail · Loyalty</span>
+          <h4 class="ul-wc-title">The 14-day early access perk was real. Nobody at the store knew how to activate it.</h4>
+          <p class="ul-wc-desc">Members had 14-day exclusive access to their favourite brands. Most never used it. Diary studies and in-store tag-alongs revealed why — and it had nothing to do with the perk itself.</p>
+          <div class="ul-wc-metric">
+            <span class="ul-wc-num">3</span>
+            <span class="ul-wc-meta">distinct member behaviors mapped — revealing where loyalty value broke down in the journey</span>
+          </div>
+        </div>
+      </a>
+
+      <!-- 9: CRE Benchmarking -->
+      <a class="ul-wc" href="beforeyoubuild-case-realestate-benchmarking.html" target="_blank" rel="noopener" data-cat="real-estate">
+        <span class="ul-wc-cta">Read story →</span>
+        <div class="ul-wc-img"><img src="images/real_estate_benchmarking_exp.jpg" alt="Real estate benchmarking research" loading="lazy"/></div>
+        <div class="ul-wc-stripe"></div>
+        <div class="ul-wc-body">
+          <span class="ul-wc-tag">Real Estate · Enterprise</span>
+          <h4 class="ul-wc-title">The benchmarking tool was solving half the problem. Research surfaced the other half.</h4>
+          <p class="ul-wc-desc">A global real estate org was solving the right problem — but only half of it. Discovery interviews across four business functions surfaced a foundational need nobody had put on the roadmap.</p>
+          <div class="ul-wc-metric">
+            <span class="ul-wc-num">4</span>
+            <span class="ul-wc-meta">strategic insights that reshaped the product vision before a line of code was written</span>
+          </div>
+        </div>
+      </a>
+
+      <!-- 11: Resort Booking / Rapid Research -->
+      <a class="ul-wc" href="beforeyoubuild-case-travel-resort-bookings.html" target="_blank" rel="noopener" data-cat="travel">
+        <span class="ul-wc-cta">Read story →</span>
+        <div class="ul-wc-img"><img src="images/travel_resort_booking_ex_rapid_research.jpg" alt="Resort booking rapid research" loading="lazy"/></div>
+        <div class="ul-wc-stripe"></div>
+        <div class="ul-wc-body">
+          <span class="ul-wc-tag">Travel · Rapid Research</span>
+          <h4 class="ul-wc-title">The resort team was shipping features for "families" and "couples" — without ever testing with either.</h4>
+          <p class="ul-wc-desc">Fast-moving teams don't always have time for full research cycles. A two-hour workshop was enough to show how far the team's assumptions were from what families and couples actually wanted.</p>
+          <div class="ul-wc-metric">
+            <span class="ul-wc-num">2</span>
+            <span class="ul-wc-meta">product changes shipped — dynamic personalization and dedicated accessibility sections</span>
+          </div>
+        </div>
+      </a>
+
+      <!-- 12: Research Prioritization Framework -->
+      <a class="ul-wc" href="beforeyoubuild-case-research-prioritization.html" target="_blank" rel="noopener" data-cat="methodology">
+        <span class="ul-wc-cta">Read story →</span>
+        <div class="ul-wc-img"><img src="images/research_prioritization.jpg" alt="Research prioritization framework methodology" loading="lazy"/></div>
+        <div class="ul-wc-stripe"></div>
+        <div class="ul-wc-body">
+          <span class="ul-wc-tag">Methodology · Strategy</span>
+          <h4 class="ul-wc-title">100 research questions. One researcher. No system to decide what mattered most.</h4>
+          <p class="ul-wc-desc">Nearly 100 open research questions and no shared way to prioritize them. What started as a personal problem turned out to be a structural one — and the fix was simpler than anyone expected.</p>
+          <div class="ul-wc-metric">
+            <span class="ul-wc-num">100+</span>
+            <span class="ul-wc-meta">research questions structured into a scoring framework adopted org-wide</span>
+          </div>
+        </div>
+      </a>
+
+      <!-- 10: CRE Portfolio Intelligence -->
+      <a class="ul-wc" href="beforeyoubuild-case-realestate-portfolio.html" target="_blank" rel="noopener" data-cat="real-estate">
+        <span class="ul-wc-cta">Read story →</span>
+        <div class="ul-wc-img"><img src="images/portfolio_mgm_platform_real_estate_exp.jpg" alt="Real estate portfolio management research" loading="lazy"/></div>
+        <div class="ul-wc-stripe"></div>
+        <div class="ul-wc-body">
+          <span class="ul-wc-tag">Real Estate · Enterprise</span>
+          <h4 class="ul-wc-title">The platform had a roadmap. A JTBD study across five roles revealed a much bigger picture.</h4>
+          <p class="ul-wc-desc">17 users. Five roles. 200+ individual jobs mapped. What the team thought was a validated roadmap turned out to be missing something none of the five roles had ever said out loud.</p>
+          <div class="ul-wc-metric">
+            <span class="ul-wc-num">200+</span>
+            <span class="ul-wc-meta">individual jobs uncovered across 5 roles — reshaping the platform vision and build sequence</span>
+          </div>
+        </div>
+      </a>
+
+    </div>
+  </div>
+
+  <!-- Dot indicators -->
+  <div class="ul-work-dots" id="ul-work-dots">
+    <button class="ul-work-dot active" data-idx="0" aria-label="Go to card 1"></button>
+    <button class="ul-work-dot" data-idx="1" aria-label="Go to card 2"></button>
+    <button class="ul-work-dot" data-idx="2" aria-label="Go to card 3"></button>
+    <button class="ul-work-dot" data-idx="3" aria-label="Go to card 4"></button>
+    <button class="ul-work-dot" data-idx="4" aria-label="Go to card 5"></button>
+    <button class="ul-work-dot" data-idx="5" aria-label="Go to card 6"></button>
+    <button class="ul-work-dot" data-idx="6" aria-label="Go to card 7"></button>
+    <button class="ul-work-dot" data-idx="7" aria-label="Go to card 8"></button>
+    <button class="ul-work-dot" data-idx="8" aria-label="Go to card 9"></button>
+    <button class="ul-work-dot" data-idx="9" aria-label="Go to card 10"></button>
+    <button class="ul-work-dot" data-idx="10" aria-label="Go to card 11"></button>
+    <button class="ul-work-dot" data-idx="11" aria-label="Go to card 12"></button>
+  </div>
+
+</section>
+
+<!-- ══════════════════════════════════════
+     ABOUT
+══════════════════════════════════════ -->
+<section id="ul-about" class="ul-section" style="background:#fff">
+  <div class="ul-about-wrap">
+
+    <div class="ul-about-vis ul-rv">
+      <div class="ul-about-img">
+        <div class="ul-about-img-inner">
+          <img src="images/about_archie.JPG" alt="Archie (Archana), Founder of Before You Build" loading="lazy"/>
+        </div>
+      </div>
+      <div class="ul-about-badge">
+        <div class="ul-ab-num">12+</div>
+        <div class="ul-ab-lbl">years in CX &<br>product strategy</div>
+      </div>
+      <div class="ul-about-stats">
+        <div class="ul-astat">
+          <div class="ul-astat-n">3×</div>
+          <div class="ul-astat-l">Platform adoption lift in 4 weeks</div>
+        </div>
+        <div class="ul-astat">
+          <div class="ul-astat-n">200+</div>
+          <div class="ul-astat-l">Customer research sessions</div>
+        </div>
+        <div class="ul-astat">
+          <div class="ul-astat-n" data-count="10" data-suffix="+">10+</div>
+          <div class="ul-astat-l">Industries served</div>
+        </div>
+        <div class="ul-astat">
+          <div class="ul-astat-n">100%</div>
+          <div class="ul-astat-l">Evidence-first approach</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="ul-about-text ul-rv d2">
+      <p class="ul-section-label">About the Founder</p>
+      <h2 class="ul-h2">12+ years turning what customers really say into decisions leaders are confident making</h2>
+      <p>I'm <strong>Archie (Archana)</strong> — the founder and lead researcher at Before You Build. For over 12 years, I've embedded inside the product teams shaping how millions of people shop, travel, invest, and live — at organizations including <strong>Amazon</strong>, <strong>Booking.com</strong>, <strong>Nordstrom</strong>, <strong>XPO Logistics</strong>, <strong>WealthBar</strong>, and <strong>Credential Financial</strong>.</p>
+      <p>From early-stage startups to global enterprise, I've sat in the room where the hard product decisions get made — across retail, financial services, logistics, travel, and enterprise technology. I understand the pressures leaders face, and what it takes to make evidence actually land with a room full of stakeholders who all have different agendas.</p>
+      <p>That's why I started Before You Build. I work as an <strong>embedded research partner on a flexible retainer</strong> — typically a 3-month minimum — so teams get senior research capacity without adding headcount. I don't just run research — I translate what your customers are telling you into clarity that moves leadership to act. That track record includes a <strong>3× lift in platform adoption</strong>, a <strong>66% reduction in onboarding drop-off</strong>, and research that directly shaped build decisions at Amazon, Nordstrom, and Booking.com. Every engagement is led by me directly — not a junior team running a template.</p>
+      <div class="ul-philosophy">
+        <p>"The best business decisions aren't just smart — they're backed. I help leaders build that backing before it's too late to use it."</p>
+      </div>
+      <a href="https://www.linkedin.com/in/archie-connect/" target="_blank" rel="noopener" class="ul-linkedin-btn">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+        </svg>
+        Connect on LinkedIn
+      </a>
+      <div class="ul-creds">
+        <span class="ul-cred-label">Trained at</span>
+        <div class="ul-cred-list">
+          <span class="ul-cred">IDEO</span>
+          <span class="ul-cred-sep">·</span>
+          <span class="ul-cred">Nielsen Norman Group</span>
+          <span class="ul-cred-sep">·</span>
+          <span class="ul-cred">Human Factors International</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     TESTIMONIALS
+══════════════════════════════════════ -->
+<section id="ul-testimonials" class="ul-section">
+
+  <div class="ul-hdr ul-rv">
+    <p class="ul-section-label">What others say</p>
+    <h2 class="ul-h2">Trusted by product and strategy teams at leading organizations</h2>
+  </div>
+
+  <div class="ul-test-grid" id="ul-test-grid">
+
+    <div class="ul-tc ul-rv d1" data-tc="0">
+      <div class="ul-tc-mark">"</div>
+      <p class="ul-tc-quote">Archie was instrumental in guiding us through both strategic and tactical research — from initial discovery to product-market fit. Her insights shaped key decisions, including a customer journey map that became a crucial tool for driving alignment. Thanks to her work, we built a solid roadmap, streamlined our MVP, and ensured a strong user experience.</p>
+      <div class="ul-tc-attr">
+        <span class="ul-tc-company">Booking.com</span>
+        <span class="ul-tc-role">Senior Product Manager</span>
+      </div>
+    </div>
+
+    <div class="ul-tc ul-rv d2" data-tc="1">
+      <div class="ul-tc-mark">"</div>
+      <p class="ul-tc-quote">I saw Archie repeatedly lead project teams through complex problem spaces — not only uncovering critical insights that greatly improve the end user experience, but also unifying a diverse set of stakeholders who came in with very different visions and goals for the end product. She continually brings enthusiasm and an uncanny ability to tell the story in compelling ways.</p>
+      <div class="ul-tc-attr">
+        <span class="ul-tc-company">Nordstrom</span>
+        <span class="ul-tc-role">Head of UX Research</span>
+      </div>
+    </div>
+
+    <div class="ul-tc ul-rv d3" data-tc="2">
+      <div class="ul-tc-mark">"</div>
+      <p class="ul-tc-quote">Archana clearly understands that UX is a team sport. While working together, she successfully led product research and discovery over a full suite of enterprise products. She's hard working, persevering, has great communication skills, and excels when it comes to leading, planning, and executing user research.</p>
+      <div class="ul-tc-attr">
+        <span class="ul-tc-company">XPO Logistics</span>
+        <span class="ul-tc-role">Product Design Leader</span>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Nav dots — one per "page" of 3 -->
+  <div class="ul-test-nav" id="ul-test-nav" aria-label="Testimonial navigation"></div>
+
+</section>
+
+<!-- ══════════════════════════════════════
+     CTA
+══════════════════════════════════════ -->
+<section id="ul-contact" class="ul-section">
+
+  <div class="ul-orb-field" aria-hidden="true">
+    <div class="ul-orb ul-orb-blue   anim-a" style="width:520px;height:520px;top:-120px;right:5%"></div>
+    <div class="ul-orb ul-orb-indigo anim-b" style="width:320px;height:320px;bottom:-60px;left:8%"></div>
+  </div>
+
+  <div class="ul-cta-wrap">
+
+    <div class="ul-cta-inner ul-rv">
+      <p class="ul-section-label">Start the conversation</p>
+      <h2 class="ul-h2">Let's connect.</h2>
+      <p class="ul-cta-body">
+        Share a bit of context about what you're working on — the decision you're facing, what's at stake, and what's driving the pressure. Archie reviews every inquiry personally and follows up within 1–2 business days.
+      </p>
+      <p class="ul-cta-body" style="margin-top:-.5rem">
+        If it looks like a good fit, she'll reach out with a link to schedule a conversation.
+      </p>
+      <p class="ul-cta-note">No pitch decks. No commitment. Just an honest first conversation.</p>
+    </div>
+
+    <div class="ul-form-panel ul-rv d2">
+      <h3>Get in touch</h3>
+      <p>Archie will review your message and follow up personally — usually within 1–2 business days.</p>
+
+      <!-- ── Contact Form ── -->
+      <form id="ul-contact-form" name="contact" method="POST" novalidate>
+        <!-- honeypot — leave hidden, catches basic bots -->
+        <p style="display:none"><input name="bot-field" tabindex="-1" autocomplete="off"/></p>
+
+        <div class="ul-form-row">
+          <div class="ul-form-field">
+            <label for="cf-name">Your name</label>
+            <input type="text" id="cf-name" name="name" placeholder="Jane Smith" required/>
+          </div>
+          <div class="ul-form-field">
+            <label for="cf-company">Company</label>
+            <input type="text" id="cf-company" name="company" placeholder="Acme Inc."/>
+          </div>
+        </div>
+        <div class="ul-form-field" style="margin-bottom:.75rem">
+          <label for="cf-email">Email address</label>
+          <input type="email" id="cf-email" name="email" placeholder="you@company.com" required/>
+        </div>
+        <div class="ul-form-field">
+          <label for="cf-message">Tell us more</label>
+          <textarea id="cf-message" name="message" placeholder="Share a bit about your situation, timeline, or what you're trying to figure out..."></textarea>
+        </div>
+
+        <!-- Cloudflare Turnstile — replace data-sitekey with your key from dash.cloudflare.com -->
+        <div class="ul-turnstile-wrap">
+          <div class="cf-turnstile"
+               data-sitekey="YOUR_TURNSTILE_SITE_KEY"
+               data-theme="dark"
+               data-size="flexible">
+          </div>
+        </div>
+
+        <p class="ul-form-error" id="ul-form-error">Please complete the security check before sending.</p>
+        <button type="submit" class="ul-form-submit" id="ul-form-btn">Send Message →</button>
+        <p class="ul-form-note">We'll respond within 1–2 business days.</p>
+      </form>
+
+      <!-- ── Success state (shown after submit) ── -->
+      <div class="ul-form-success" id="ul-form-success">
+        <div class="ul-form-success-icon">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="20 6 9 17 4 12"/>
+          </svg>
+        </div>
+        <h4>Message sent.</h4>
+        <p>Thanks for reaching out. Archie will review your message and follow up personally within 1–2 business days.</p>
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+<!-- ══════════════════════════════════════
+     FOOTER
+══════════════════════════════════════ -->
+<footer id="ul-footer">
+  <div class="ul-foot-logo">
+    <svg width="20" height="20" viewBox="0 0 36 36" fill="none" aria-hidden="true">
+      <rect x="4" y="4" width="28" height="28" rx="1.5" stroke="var(--accent-lt)" stroke-width="1.5" fill="none" opacity=".2"/>
+      <rect x="10" y="10" width="16" height="16" rx="1.5" stroke="var(--accent-lt)" stroke-width="1.5" fill="none" opacity=".4"/>
+      <rect x="16" y="16" width="4" height="4" rx="1" fill="var(--accent-lt)"/>
+    </svg>
+    before you <span>build</span>
+  </div>
+  <div class="ul-foot-links">
+    <a href="#ul-zones">Services</a>
+    <a href="#ul-work">Work</a>
+    <a href="#ul-about">About</a>
+    <a href="#ul-contact">Contact</a>
+  </div>
+  <p class="ul-foot-copy">© 2025 Before You Build. All rights reserved.</p>
+</footer>
+
+<!-- ══════════════════════════════════════
+     SCRIPTS
+══════════════════════════════════════ -->
+<script>
+/* ── Cursor ── */
+const dot=document.getElementById('ul-dot'),ring=document.getElementById('ul-ring');
+let rx=0,ry=0,mx=0,my=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;dot.style.left=mx+'px';dot.style.top=my+'px';});
+(function rafRing(){rx+=(mx-rx)*.12;ry+=(my-ry)*.12;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(rafRing);})();
+document.querySelectorAll('a,button').forEach(el=>{
+  el.addEventListener('mouseenter',()=>{ring.style.width='50px';ring.style.height='50px';dot.style.opacity='0'});
+  el.addEventListener('mouseleave',()=>{ring.style.width='34px';ring.style.height='34px';dot.style.opacity='1'});
+});
+
+/* ── Nav scroll ── */
+const nav=document.getElementById('ul-nav');
+window.addEventListener('scroll',()=>{nav.classList.toggle('stuck',window.scrollY>40)},{passive:true});
+
+/* ── Word cycling ── */
+const words=['product teams','startup founders','technology leaders','CX teams','strategy leads','government teams'];
+let wIdx=0;
+const wordEl=document.getElementById('ul-word');
+setInterval(()=>{
+  wordEl.style.opacity='0';wordEl.style.transform='translateY(-8px)';
+  setTimeout(()=>{
+    wIdx=(wIdx+1)%words.length;
+    wordEl.textContent=words[wIdx];
+    wordEl.style.opacity='1';wordEl.style.transform='translateY(0)';
+  },320);
+},3200);
+
+
+/* ── Count-up ── */
+function countUp(el){
+  if(el.dataset.counted)return;el.dataset.counted='1';
+  const target=parseFloat(el.dataset.count),suffix=el.dataset.suffix||'',dur=1800,start=performance.now();
+  const tick=now=>{
+    const p=Math.min((now-start)/dur,1),ease=1-Math.pow(1-p,3);
+    el.textContent=Math.floor(ease*target)+suffix;
+    if(p<1)requestAnimationFrame(tick);else el.textContent=target+suffix;
+  };
+  requestAnimationFrame(tick);
+}
+
+/* ── Reveal on scroll + count-up trigger ── */
+const ro=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      e.target.classList.add('on');
+      e.target.querySelectorAll('[data-count]').forEach(countUp);
+      ro.unobserve(e.target);
+    }
+  });
+},{threshold:.18});
+document.querySelectorAll('.ul-rv').forEach(el=>ro.observe(el));
+
+/* ── Mouse parallax on hero ── */
+const heroVis=document.querySelector('.ul-hero-vis');
+document.getElementById('ul-hero').addEventListener('mousemove',e=>{
+  const x=(e.clientX/window.innerWidth-.5)*24,y=(e.clientY/window.innerHeight-.5)*24;
+  if(heroVis)heroVis.style.transform=`translateY(-50%) translate(${x*.45}px,${y*.45}px)`;
+},{passive:true});
+
+/* ── Stat card floating class ── */
+document.querySelectorAll('.ul-fsc').forEach((c,i)=>{
+  setTimeout(()=>{
+    c.style.opacity='1';
+    // floating handled by CSS animation already
+  },(1500+i*200));
+});
+
+/* ── Work Carousel (filter-aware) ── */
+(function(){
+  const track    = document.getElementById('ul-work-track');
+  const prevBtn  = document.getElementById('ul-wprev');
+  const nextBtn  = document.getElementById('ul-wnext');
+  const counter  = document.getElementById('ul-wnav-count');
+  const dotsWrap = document.getElementById('ul-work-dots');
+  const filterBtns = document.querySelectorAll('.ul-wf-pill');
+  const allCards = [...track.querySelectorAll('.ul-wc')];
+  const GAP = 20;
+  let idx = 0;
+  let active = allCards;
+
+  function visibleCount(){
+    if(window.innerWidth >= 960) return 3;
+    if(window.innerWidth >= 620) return 2;
+    return 1;
+  }
+
+  function setCardSize(){
+    const vis  = visibleCount();
+    const wrap = track.parentElement.offsetWidth;
+    const cardW = Math.floor((wrap - GAP * (vis - 1)) / vis);
+    active.forEach(c => { c.style.minWidth = cardW + 'px'; c.style.maxWidth = cardW + 'px'; });
+    return cardW;
+  }
+
+  function buildDots(){
+    dotsWrap.innerHTML = '';
+    active.forEach((_, i) => {
+      const btn = document.createElement('button');
+      btn.className = 'ul-work-dot' + (i === 0 ? ' active' : '');
+      btn.setAttribute('aria-label', 'Go to card ' + (i + 1));
+      btn.addEventListener('click', () => goTo(i));
+      dotsWrap.appendChild(btn);
+    });
+  }
+
+  function goTo(n){
+    const vis   = visibleCount();
+    const TOTAL = active.length;
+    const cardW = setCardSize();
+    idx = Math.max(0, Math.min(n, TOTAL - vis));
+    track.style.transform = `translateX(-${(cardW + GAP) * idx}px)`;
+    prevBtn.disabled = idx === 0;
+    nextBtn.disabled = idx >= TOTAL - vis;
+    counter.textContent = `${idx + 1} / ${TOTAL}`;
+    dotsWrap.querySelectorAll('.ul-work-dot').forEach((d, i) => d.classList.toggle('active', i === idx));
+  }
+
+  function applyFilter(cat){
+    active = cat === 'all' ? allCards : allCards.filter(c => c.dataset.cat === cat);
+    allCards.forEach(c => { c.style.display = active.includes(c) ? '' : 'none'; });
+    idx = 0;
+    buildDots();
+    requestAnimationFrame(() => goTo(0));
+  }
+
+  filterBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      filterBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      applyFilter(btn.dataset.filter);
+    });
+  });
+
+  prevBtn.addEventListener('click', () => goTo(idx - 1));
+  nextBtn.addEventListener('click', () => goTo(idx + 1));
+
+  /* Drag */
+  let startX = null, startIdx = 0;
+  track.addEventListener('mousedown', e => { startX = e.clientX; startIdx = idx; track.classList.add('dragging'); });
+  document.addEventListener('mousemove', e => {
+    if(startX === null) return;
+    const cardW = active[0] ? active[0].offsetWidth : 300;
+    const step  = cardW + GAP;
+    const vis   = visibleCount();
+    const clampedIdx = Math.max(0, Math.min(startIdx + (startX - e.clientX) / step, active.length - vis));
+    track.style.transform = `translateX(-${step * clampedIdx}px)`;
+  });
+  document.addEventListener('mouseup', e => {
+    if(startX === null) return;
+    const diff = startX - e.clientX;
+    if(diff > 60) goTo(idx + 1);
+    else if(diff < -60) goTo(idx - 1);
+    else goTo(idx);
+    startX = null; track.classList.remove('dragging');
+  });
+
+  /* Touch */
+  let touchX = null;
+  track.addEventListener('touchstart', e => { touchX = e.touches[0].clientX; startIdx = idx; }, {passive:true});
+  track.addEventListener('touchend', e => {
+    if(touchX === null) return;
+    const diff = touchX - e.changedTouches[0].clientX;
+    if(diff > 50) goTo(idx + 1);
+    else if(diff < -50) goTo(idx - 1);
+    else goTo(idx);
+    touchX = null;
+  });
+
+  window.addEventListener('resize', () => goTo(idx), {passive:true});
+
+  /* Init */
+  buildDots();
+  requestAnimationFrame(() => goTo(0));
+})();
+
+/* ── TESTIMONIALS AUTO-ROTATE ────────────────────────────────── */
+(function(){
+  // All testimonials pool — add more objects here as quotes come in
+  const ALL = [
+    {
+      quote: "Archie was instrumental in guiding us through both strategic and tactical research — from initial discovery to product-market fit. Her insights shaped key decisions, including a customer journey map that became a crucial tool for driving alignment. Thanks to her work, we built a solid roadmap, streamlined our MVP, and ensured a strong user experience.",
+      company: "Booking.com",
+      role: "Senior Product Manager"
+    },
+    {
+      quote: "I saw Archie repeatedly lead project teams through complex problem spaces — not only uncovering critical insights that greatly improve the end user experience, but also unifying a diverse set of stakeholders who came in with very different visions and goals for the end product. She continually brings enthusiasm and an uncanny ability to tell the story in compelling ways.",
+      company: "Nordstrom",
+      role: "Head of UX Research"
+    },
+    {
+      quote: "Archana clearly understands that UX is a team sport. While working together, she successfully led product research and discovery over a full suite of enterprise products. She's hard working, persevering, has great communication skills, and excels when it comes to leading, planning, and executing user research.",
+      company: "XPO Logistics",
+      role: "Product Design Leader"
+    },
+    {
+      quote: "Not only is Archie a skilled researcher, but she's a pleasure to have on the team. With no guidance at all she will determine research needs, prioritize them to maximize impact, generate a research roadmap, and conduct rigorous yet timely studies. She truly excels at stakeholder management — with a natural ability to build trust and foster collaboration. Her competence, independence, and thoughtful, empathetic approach make her a match for any project. I recommend her wholeheartedly to anybody looking for a talented UX researcher.",
+      company: "Nordstrom",
+      role: "Lead UX Researcher"
+    },
+    {
+      quote: "Archie has a rare talent for balancing qualitative and quantitative research, ensuring that we weren't just designing based on assumptions but truly addressing user needs. Her collaborative approach made it easy for cross-functional teams to align, and her findings directly influenced key product decisions. Beyond her research expertise, Archie is a team player — thoughtful, curious, and always willing to go the extra mile. Any team looking for a sharp, strategic UX researcher would be lucky to have her.",
+      company: "Nordstrom Rack",
+      role: "Senior Product Manager"
+    },
+    {
+      quote: "Working with Archana has been excellent. My experience working with her on a number of designs has shown that she is a team player, a hard worker, and I am always inspired by her passion for User Experience. I recommend Archana for companies looking for a designer with a keen eye for detail and who works well within a team environment.",
+      company: "Incognito Software",
+      role: "Senior Developer"
+    }
+  ];
+
+  const PER_PAGE   = 3;           // cards visible at once
+  const INTERVAL   = 7000;        // ms between rotations
+  const FADE_MS    = 550;         // must match CSS transition duration
+
+  const grid  = document.getElementById('ul-test-grid');
+  const nav   = document.getElementById('ul-test-nav');
+  if(!grid || !nav || ALL.length <= PER_PAGE) return; // nothing to rotate if pool ≤ 3
+
+  const cards    = Array.from(grid.querySelectorAll('.ul-tc'));
+  const numPages = Math.ceil(ALL.length / PER_PAGE);
+  let   page     = 0;
+  let   timer    = null;
+  let   paused   = false;
+
+  // Build dots
+  for(let i = 0; i < numPages; i++){
+    const pip = document.createElement('button');
+    pip.className = 'ul-test-pip' + (i === 0 ? ' active' : '');
+    pip.setAttribute('aria-label', 'Go to testimonials page ' + (i+1));
+    pip.addEventListener('click', () => { goToPage(i); resetTimer(); });
+    nav.appendChild(pip);
+  }
+
+  function setContent(card, t){
+    card.querySelector('.ul-tc-quote').textContent   = t.quote;
+    card.querySelector('.ul-tc-company').textContent = t.company;
+    card.querySelector('.ul-tc-role').textContent    = t.role;
+  }
+
+  function goToPage(n){
+    page = (n + numPages) % numPages;
+    const start = page * PER_PAGE;
+
+    cards.forEach((card, i) => {
+      const t = ALL[start + i];
+      if(!t){ card.style.visibility = 'hidden'; return; }
+      card.style.visibility = '';
+
+      // Fade out → swap content → fade in
+      card.classList.add('fading');
+      setTimeout(() => {
+        setContent(card, t);
+        card.classList.remove('fading');
+      }, FADE_MS);
+    });
+
+    // Update dots
+    nav.querySelectorAll('.ul-test-pip').forEach((p,i) => p.classList.toggle('active', i === page));
+  }
+
+  function resetTimer(){
+    clearInterval(timer);
+    if(!paused) timer = setInterval(() => goToPage(page + 1), INTERVAL);
+  }
+
+  // Pause on hover
+  grid.addEventListener('mouseenter', () => { paused = true;  clearInterval(timer); });
+  grid.addEventListener('mouseleave', () => { paused = false; resetTimer(); });
+
+  // Kick off
+  resetTimer();
+})();
+
+
+</script>
+
+<!-- Cloudflare Turnstile -->
+<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+
+<script>
+// ── Contact form handler ──────────────────────────────────────────────
+(function(){
+  const form    = document.getElementById('ul-contact-form');
+  const btn     = document.getElementById('ul-form-btn');
+  const errMsg  = document.getElementById('ul-form-error');
+  const success = document.getElementById('ul-form-success');
+  if(!form) return;
+
+  form.addEventListener('submit', async function(e){
+    e.preventDefault();
+
+    // 1. Basic HTML5 validation
+    if(!form.checkValidity()){
+      form.reportValidity();
+      return;
+    }
+
+    // 2. Turnstile token check
+    const token = form.querySelector('[name="cf-turnstile-response"]');
+    if(!token || !token.value){
+      errMsg.classList.add('show');
+      return;
+    }
+    errMsg.classList.remove('show');
+
+    // 3. Disable button while submitting
+    btn.disabled = true;
+    btn.textContent = 'Sending\u2026';
+
+    try {
+      // ── TODO: replace with your real backend endpoint ──────────────
+      // The endpoint should:
+      //   1. Verify the Turnstile token server-side against Cloudflare API
+      //      POST https://challenges.cloudflare.com/turnstile/v0/siteverify
+      //      with secret key + token
+      //   2. Send / store the form data (email, Azure DB, etc.)
+      //
+      // const res = await fetch('/api/contact', {
+      //   method: 'POST',
+      //   headers: {'Content-Type':'application/json'},
+      //   body: JSON.stringify({
+      //     name:    form.querySelector('[name="name"]').value,
+      //     company: form.querySelector('[name="company"]').value,
+      //     email:   form.querySelector('[name="email"]').value,
+      //     service: form.querySelector('[name="service"]').value,
+      //     message: form.querySelector('[name="message"]').value,
+      //     token:   token.value
+      //   })
+      // });
+      // if(!res.ok) throw new Error('Server error');
+      // ──────────────────────────────────────────────────────────────
+
+      // TEMP: simulate success until backend is wired up
+      await new Promise(r => setTimeout(r, 800));
+
+      // 4. Show success state
+      form.style.display = 'none';
+      success.classList.add('show');
+
+    } catch(err){
+      btn.disabled = false;
+      btn.textContent = 'Send Message \u2192';
+      errMsg.textContent = 'Something went wrong \u2014 please try again or email directly.';
+      errMsg.classList.add('show');
+    }
+  });
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,1068 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Portfolio Intelligence Platform — Before You Build Case Study</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;font-size:16px}
+body{font-family:var(--sans);background:#fff;color:var(--ink);overflow-x:hidden}
+img,svg{display:block}
+a{text-decoration:none}
+
+:root{
+  --ink:#0D1422;--ink-mid:#4A5568;--ink-soft:#8896AB;
+  --off:#F5F7FF;--off-2:#EEF1FD;
+  --accent:#3D5FE0;--accent-lt:#6E8FF5;--accent-dk:#2544C8;
+  --serif:'Playfair Display',Georgia,serif;
+  --sans:'Inter',-apple-system,sans-serif;
+  --r:14px;--r-lg:22px;
+  --sh-sm:0 1px 4px rgba(13,20,34,.06),0 1px 2px rgba(13,20,34,.04);
+  --sh-md:0 8px 28px rgba(13,20,34,.09),0 2px 8px rgba(13,20,34,.05);
+  --ease:cubic-bezier(.4,0,.2,1);
+}
+
+/* ── BACKGROUND ORBS ── */
+.cs-bg{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden}
+.cs-orb{position:absolute;border-radius:50%;filter:blur(90px);opacity:0;animation:orbDrift 18s ease-in-out infinite}
+.cs-orb-1{width:500px;height:500px;background:rgba(61,95,224,.055);top:-100px;right:-80px;animation-delay:0s}
+.cs-orb-2{width:380px;height:380px;background:rgba(110,143,245,.04);bottom:10%;left:-60px;animation-delay:-9s}
+.cs-orb-3{width:300px;height:300px;background:rgba(61,95,224,.035);top:45%;right:5%;animation-delay:-4s}
+@keyframes orbDrift{
+  0%{opacity:0;transform:translate(0,0) scale(1)}
+  15%{opacity:1}
+  50%{transform:translate(20px,-30px) scale(1.06)}
+  85%{opacity:1}
+  100%{opacity:0;transform:translate(0,0) scale(1)}
+}
+
+/* ── NAV ── */
+#ul-nav{
+  position:fixed;top:0;left:0;right:0;z-index:200;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 5%;height:72px;
+  background:rgba(255,255,255,.96);
+  backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);
+  box-shadow:0 1px 0 rgba(13,20,34,.07);
+}
+.ul-logo{display:inline-flex;align-items:center;gap:.7rem;text-decoration:none}
+.ul-logo-mark{width:38px;height:38px;flex-shrink:0}
+@keyframes orbitSpin{to{transform:rotate(360deg)}}
+@keyframes irisBreathe{0%,100%{r:4.5}50%{r:5.5}}
+.ul-logo-orbit{transform-origin:16px 16px;animation:orbitSpin 8s linear infinite}
+.ul-logo-iris{animation:irisBreathe 3s ease-in-out infinite}
+
+.ul-logo-text{font-family:var(--sans);font-size:1.1rem;font-weight:400;color:var(--ink-mid);letter-spacing:-.01em;line-height:1}
+.ul-logo-text strong{font-weight:700;color:var(--ink)}
+.ul-nav-links{display:flex;align-items:center;gap:2.25rem;list-style:none}
+.ul-nav-links a{font-size:.875rem;font-weight:500;color:var(--ink-mid);transition:color .2s}
+.ul-nav-links a:hover{color:var(--ink)}
+.ul-nav-cta{
+  background:var(--accent);color:#fff!important;
+  padding:.5rem 1.4rem;border-radius:100px;
+  font-weight:600!important;font-size:.85rem!important;
+  transition:background .2s,transform .2s!important;
+}
+.ul-nav-cta:hover{background:var(--accent-dk)!important;transform:translateY(-1px)!important}
+
+/* ── HERO ── */
+.cs-hero{margin-top:72px;position:relative;background:var(--ink);overflow:hidden}
+.cs-hero-img{
+  width:100%;height:480px;object-fit:cover;display:block;
+  opacity:.4;filter:saturate(.6);
+  transform:scale(1.06);
+  animation:heroZoom 18s ease-out forwards;
+}
+@keyframes heroZoom{to{transform:scale(1)}}
+.cs-hero-overlay{
+  position:absolute;inset:0;
+  background:linear-gradient(to bottom,rgba(13,20,34,.2) 0%,rgba(13,20,34,.65) 50%,rgba(13,20,34,.97) 100%);
+}
+.cs-hero-content{
+  position:absolute;bottom:0;left:50%;transform:translateX(-50%);
+  width:100%;max-width:860px;padding:3rem 5% 3.5rem;
+}
+.cs-tag{
+  display:inline-block;font-size:.7rem;font-weight:700;
+  letter-spacing:.1em;text-transform:uppercase;color:var(--accent-lt);margin-bottom:1rem;
+}
+.cs-hero-title{
+  font-family:var(--serif);font-size:clamp(1.75rem,3.6vw,2.65rem);
+  font-weight:700;color:#fff;line-height:1.18;margin-bottom:1rem;
+}
+.cs-hero-intro{font-size:1rem;color:rgba(210,220,240,.7);line-height:1.72;max-width:580px}
+
+/* ── AT-A-GLANCE ── */
+.cs-glance{background:#fff;border-bottom:1px solid rgba(13,20,34,.08);position:relative;z-index:1}
+.cs-glance-inner{
+  max-width:860px;margin:0 auto;padding:0 5%;
+  display:grid;grid-template-columns:repeat(4,1fr);
+}
+.cs-gl-item{
+  padding:1.6rem 1.2rem;border-right:1px solid rgba(13,20,34,.07);
+  cursor:default;
+  transition:background .28s var(--ease),transform .28s var(--ease);
+  position:relative;overflow:hidden;
+}
+.cs-gl-item:last-child{border-right:none}
+.cs-gl-item::after{
+  content:'';position:absolute;bottom:0;left:0;right:0;height:2px;
+  background:var(--accent);transform:scaleX(0);transform-origin:left;
+  transition:transform .35s var(--ease);
+}
+.cs-gl-item:hover{background:var(--off);transform:translateY(-2px)}
+.cs-gl-item:hover::after{transform:scaleX(1)}
+.cs-gl-icon{
+  width:34px;height:34px;border-radius:10px;
+  background:rgba(61,95,224,.1);
+  display:flex;align-items:center;justify-content:center;
+  margin-bottom:.9rem;transition:background .28s,transform .28s;
+  color:var(--accent);
+}
+.cs-gl-item:hover .cs-gl-icon{background:rgba(61,95,224,.18);transform:scale(1.1)}
+.cs-gl-label{font-size:.63rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);margin-bottom:.35rem}
+.cs-gl-value{font-size:.87rem;font-weight:500;color:var(--ink);line-height:1.45}
+
+/* ── THE GIST ── */
+.cs-gist-wrap{background:var(--ink);position:relative;z-index:1}
+.cs-gist{
+  max-width:860px;margin:0 auto;padding:2.5rem 5%;
+  display:grid;grid-template-columns:auto 1fr;gap:2.5rem;align-items:start;
+}
+.cs-gist-label{
+  font-size:.65rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--accent-lt);white-space:nowrap;padding-top:.15rem;
+}
+.cs-gist-items{display:flex;flex-direction:column;gap:1rem}
+.cs-gist-item{display:flex;align-items:flex-start;gap:.9rem}
+.cs-gist-dot{
+  width:24px;height:24px;border-radius:50%;flex-shrink:0;margin-top:.1rem;
+  display:flex;align-items:center;justify-content:center;
+}
+.cs-gist-dot.problem{background:rgba(239,68,68,.18)}
+.cs-gist-dot.approach{background:rgba(61,95,224,.25)}
+.cs-gist-dot.outcome{background:rgba(16,185,129,.2)}
+.cs-gist-dot svg{width:11px;height:11px}
+.cs-gist-dot.problem svg{color:#f87171}
+.cs-gist-dot.approach svg{color:var(--accent-lt)}
+.cs-gist-dot.outcome svg{color:#34d399}
+.cs-gist-text{font-size:.93rem;line-height:1.62;color:rgba(210,220,240,.75)}
+.cs-gist-text strong{color:#fff;font-weight:600}
+
+/* ── BODY ── */
+.cs-body{max-width:760px;margin:0 auto;padding:5rem 5% 2rem;position:relative;z-index:1}
+
+/* ── SECTION ── */
+.cs-section{margin-bottom:4.25rem}
+.cs-section-label{
+  font-size:.68rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--accent);margin-bottom:.65rem;
+}
+.cs-section-title{
+  font-family:var(--serif);font-size:1.75rem;font-weight:700;
+  color:var(--ink);line-height:1.22;margin-bottom:1.25rem;
+}
+.cs-prose{font-size:1rem;line-height:1.82;color:var(--ink-mid);margin-bottom:.9rem}
+.cs-prose strong{color:var(--ink);font-weight:600}
+.cs-prose:last-child{margin-bottom:0}
+.cs-divider{border:none;border-top:1px solid rgba(13,20,34,.07);margin:4.25rem 0}
+
+/* ── PULL QUOTE ── */
+.cs-pull{
+  border-left:3px solid var(--accent);
+  margin:2.25rem 0;padding:1.1rem 1.6rem;
+  background:var(--off);border-radius:0 var(--r) var(--r) 0;
+}
+.cs-pull p{
+  font-family:var(--serif);font-size:1.1rem;font-weight:500;
+  color:var(--ink);line-height:1.6;font-style:italic;
+}
+
+/* ── NUMBERED CARDS ── */
+.cs-cards{display:flex;flex-direction:column;gap:1rem;margin:1.75rem 0}
+.cs-card{
+  display:grid;grid-template-columns:44px 1fr;gap:1.25rem;align-items:start;
+  background:#fff;border:1px solid rgba(13,20,34,.07);
+  border-radius:var(--r-lg);padding:1.4rem 1.6rem;
+  box-shadow:var(--sh-sm);
+  transition:box-shadow .3s var(--ease),border-color .3s,transform .3s var(--ease);
+}
+.cs-card:hover{box-shadow:var(--sh-md);border-color:rgba(61,95,224,.2);transform:translateX(4px)}
+.cs-card-num{
+  width:44px;height:44px;border-radius:50%;
+  background:rgba(61,95,224,.1);flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;
+  font-family:var(--serif);font-size:1.1rem;font-weight:700;color:var(--accent);
+  transition:background .3s,transform .3s;
+}
+.cs-card:hover .cs-card-num{background:rgba(61,95,224,.18);transform:scale(1.08)}
+.cs-card-title{font-size:.96rem;font-weight:600;color:var(--ink);margin-bottom:.35rem}
+.cs-card-body{font-size:.9rem;line-height:1.7;color:var(--ink-mid)}
+
+/* ── COMPARABILITY FRAMEWORK ── */
+.cs-framework{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;margin:2rem 0;
+  background:rgba(13,20,34,.08);border-radius:var(--r-lg);overflow:hidden;
+  box-shadow:var(--sh-sm);
+}
+.cs-fw-col{
+  background:#fff;padding:1.6rem 1.5rem;
+  transition:background .25s;
+}
+.cs-fw-col:hover{background:var(--off)}
+.cs-fw-badge{
+  display:inline-block;font-size:.58rem;font-weight:700;letter-spacing:.1em;
+  text-transform:uppercase;padding:.22rem .6rem;border-radius:100px;
+  margin-bottom:.9rem;
+}
+.cs-fw-badge.meaningful{color:#059669;background:rgba(5,150,105,.1)}
+.cs-fw-badge.directional{color:#D97706;background:rgba(217,119,6,.1)}
+.cs-fw-badge.internal{color:var(--accent);background:rgba(61,95,224,.1)}
+.cs-fw-title{font-size:.92rem;font-weight:600;color:var(--ink);margin-bottom:.5rem;line-height:1.3}
+.cs-fw-body{font-size:.82rem;line-height:1.65;color:var(--ink-mid)}
+
+/* ── CHANGE ITEMS ── */
+.cs-changes{display:flex;flex-direction:column;gap:.85rem;margin:1.75rem 0}
+.cs-change{
+  display:flex;align-items:flex-start;gap:1rem;
+  padding:1.15rem 1.4rem;background:var(--off);
+  border-radius:var(--r);border:1px solid rgba(13,20,34,.06);
+  transition:background .25s,border-color .25s;
+}
+.cs-change:hover{background:var(--off-2);border-color:rgba(61,95,224,.15)}
+.cs-change-dot{
+  width:28px;height:28px;border-radius:50%;flex-shrink:0;margin-top:.1rem;
+  background:rgba(61,95,224,.12);
+  display:flex;align-items:center;justify-content:center;color:var(--accent);
+  transition:background .25s;
+}
+.cs-change:hover .cs-change-dot{background:rgba(61,95,224,.22)}
+.cs-change-text{font-size:.94rem;line-height:1.68;color:var(--ink-mid)}
+.cs-change-text strong{color:var(--ink);font-weight:600}
+
+/* ── OUTCOME BLOCK ── */
+.cs-outcome-block{
+  background:var(--ink);border-radius:var(--r-lg);
+  padding:2.5rem;margin:2rem 0;overflow:hidden;position:relative;
+}
+.cs-outcome-block::before{
+  content:'';position:absolute;top:-60px;right:-60px;width:250px;height:250px;
+  border-radius:50%;background:rgba(61,95,224,.15);filter:blur(50px);pointer-events:none;
+}
+.cs-outcome-label{
+  font-size:.65rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--accent-lt);margin-bottom:1.5rem;
+}
+.cs-outcome-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem}
+.cs-og-num{
+  font-family:var(--serif);font-size:2.4rem;font-weight:700;
+  color:#fff;line-height:1;margin-bottom:.3rem;
+}
+.cs-og-desc{font-size:.79rem;color:rgba(210,220,240,.5);line-height:1.5}
+
+/* ── CASE NAV ── */
+.cs-page-nav{border-top:1px solid rgba(13,20,34,.08);padding:2.5rem 5%;position:relative;z-index:1}
+.cs-page-nav-inner{
+  max-width:760px;margin:0 auto;
+  display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;
+}
+.cs-back-link{
+  display:inline-flex;align-items:center;gap:.45rem;
+  font-size:.88rem;font-weight:500;color:var(--ink-soft);transition:color .2s;
+}
+.cs-back-link:hover{color:var(--accent)}
+.cs-next-link{display:flex;flex-direction:column;align-items:flex-end;gap:.15rem}
+.cs-next-lbl{font-size:.65rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-soft)}
+.cs-next-title{
+  display:inline-flex;align-items:center;gap:.4rem;
+  font-size:.92rem;font-weight:500;color:var(--ink-mid);transition:color .2s;
+}
+.cs-next-title:hover{color:var(--accent)}
+
+/* ── FOOTER ── */
+#ul-footer{
+  background:#070A12;padding:2.5rem 5%;
+  display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;
+  border-top:1px solid rgba(255,255,255,.04);
+}
+.ul-foot-logo{font-family:var(--serif);font-size:1.05rem;font-weight:700;color:#fff;display:flex;align-items:center;gap:.4rem}
+.ul-foot-logo span{color:var(--accent-lt)}
+.ul-foot-links{display:flex;gap:1.5rem}
+.ul-foot-links a{font-size:.8rem;color:rgba(210,220,240,.4);transition:color .2s}
+.ul-foot-links a:hover{color:#fff}
+.ul-foot-copy{font-size:.76rem;color:rgba(210,220,240,.28)}
+
+/* ── REVEAL ── */
+.rv{opacity:0;transform:translateY(18px);transition:opacity .6s var(--ease),transform .6s var(--ease)}
+.rv.on{opacity:1;transform:none}
+.rv.d1{transition-delay:.1s}.rv.d2{transition-delay:.2s}.rv.d3{transition-delay:.3s}.rv.d4{transition-delay:.4s}
+
+/* ── RESPONSIVE ── */
+@media(max-width:720px){
+  .cs-glance-inner{grid-template-columns:repeat(2,1fr)}
+  .cs-gl-item{border-bottom:1px solid rgba(13,20,34,.07)}
+  .cs-gist{grid-template-columns:1fr;gap:1rem}
+  .cs-outcome-grid{grid-template-columns:1fr 1fr}
+  .cs-hero-img{height:320px}
+  .ul-nav-links{display:none}
+  .cs-framework{grid-template-columns:1fr}
+}
+@media(max-width:480px){
+  .cs-glance-inner{grid-template-columns:1fr 1fr}
+  .cs-outcome-grid{grid-template-columns:1fr}
+  .cs-body{padding:3.5rem 5% 2rem}
+}
+
+/* ── Content protection ── */
+.cs-hero,.cs-section,.gist,.glance,.cs-outcome,.cs-insight,.cs-nav{
+  -webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;
+}
+img{pointer-events:none;-webkit-user-drag:none;user-drag:none}
+
+
+/* ── OLD TEMPLATE COMPATIBILITY ── */
+/* Background orbs (old style) */
+.orb{position:fixed;border-radius:50%;filter:blur(90px);pointer-events:none;z-index:0;opacity:0;animation:orbDrift 18s ease-in-out infinite}
+.orb-1{width:500px;height:500px;background:rgba(61,95,224,.055);top:-100px;right:-80px;animation-delay:0s}
+.orb-2{width:380px;height:380px;background:rgba(110,143,245,.04);bottom:10%;left:-60px;animation-delay:-9s}
+
+/* Nav (old style) */
+nav.nav{
+  position:fixed;top:0;left:0;right:0;z-index:200;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 5%;height:72px;
+  background:rgba(255,255,255,.96);
+  backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);
+  box-shadow:0 1px 0 rgba(13,20,34,.07);
+}
+a.nav-logo{display:inline-flex;align-items:center;gap:.55rem;text-decoration:none}
+.logo-svg{width:32px;height:32px;flex-shrink:0}
+.nav-wordmark{font-family:var(--serif);font-size:1.35rem;font-weight:700;color:var(--ink);letter-spacing:-.025em}
+.nav-wordmark span{color:var(--accent)}
+ul.nav-links{display:flex;align-items:center;gap:2.25rem;list-style:none}
+ul.nav-links a{font-size:.875rem;font-weight:500;color:var(--ink-mid);transition:color .2s;text-decoration:none}
+ul.nav-links a:hover{color:var(--ink)}
+a.nav-cta{
+  background:var(--accent);color:#fff!important;
+  padding:.5rem 1.4rem;border-radius:100px;
+  font-weight:600!important;font-size:.85rem!important;
+  transition:background .2s,transform .2s!important;
+}
+a.nav-cta:hover{background:var(--accent-dk)!important;transform:translateY(-1px)!important}
+
+/* Page wrap */
+.page-wrap{position:relative;z-index:1}
+
+/* At-a-glance (old style) */
+.glance{
+  background:#fff;border-bottom:1px solid rgba(13,20,34,.08);
+  display:grid;grid-template-columns:repeat(4,1fr);
+  max-width:100%;
+}
+.glance-cell{
+  padding:1.6rem 1.2rem;border-right:1px solid rgba(13,20,34,.07);
+  transition:background .28s;
+}
+.glance-cell:last-child{border-right:none}
+.glance-cell:hover{background:var(--off)}
+.glance-num{
+  display:block;
+  font-family:var(--serif);font-size:2rem;font-weight:700;
+  color:var(--accent);line-height:1;margin-bottom:.35rem;
+}
+.glance-lbl{display:block;font-size:.75rem;color:var(--ink-mid);line-height:1.4}
+
+/* Gist (old style) */
+.gist{
+  background:var(--ink);position:relative;z-index:1;
+  padding:2.5rem 5%;
+}
+.gist-title{
+  font-size:.65rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--accent-lt);margin-bottom:1.25rem;
+}
+.gist-items{display:flex;flex-direction:column;gap:1rem;max-width:760px;margin:0 auto}
+.gist-item{display:flex;align-items:flex-start;gap:.9rem}
+.gist-dot{
+  width:10px;height:10px;border-radius:50%;flex-shrink:0;margin-top:.38rem;
+}
+.gist-dot.problem{background:rgba(239,68,68,.7)}
+.gist-dot.approach{background:rgba(61,95,224,.8)}
+.gist-dot.outcome{background:rgba(16,185,129,.7)}
+.gist-text{font-size:.93rem;line-height:1.62;color:rgba(210,220,240,.75)}
+.gist-text strong{color:#fff;font-weight:600}
+
+/* Content sections (old style) */
+.cs-label{
+  font-size:.68rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--accent);margin-bottom:.65rem;display:block;
+}
+.cs-h2{
+  font-family:var(--serif);font-size:1.75rem;font-weight:700;
+  color:var(--ink);line-height:1.22;margin-bottom:1.25rem;
+}
+.cs-p{font-size:1rem;line-height:1.82;color:var(--ink-mid);margin-bottom:.9rem}
+.cs-p strong{color:var(--ink);font-weight:600}
+.cs-p:last-child{margin-bottom:0}
+.cs-quote{
+  border-left:3px solid var(--accent);
+  margin:2.25rem 0;padding:1.1rem 1.6rem;
+  background:var(--off);border-radius:0 var(--r) var(--r) 0;
+}
+.cs-quote p{
+  font-family:var(--serif);font-size:1.1rem;font-weight:500;
+  color:var(--ink);line-height:1.6;font-style:italic;
+}
+
+/* Insight cards (old style) */
+.cs-insight{
+  display:flex;align-items:flex-start;gap:1.25rem;
+  padding:1.4rem 1.6rem;background:#fff;
+  border:1px solid rgba(13,20,34,.07);border-radius:var(--r-lg);
+  box-shadow:var(--sh-sm);margin-bottom:1rem;
+  transition:box-shadow .3s,border-color .3s,transform .3s;
+}
+.cs-insight:hover{box-shadow:var(--sh-md);border-color:rgba(61,95,224,.2);transform:translateX(4px)}
+.cs-insight-icon{
+  width:40px;height:40px;border-radius:10px;
+  background:rgba(61,95,224,.1);flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;color:var(--accent);
+}
+.cs-insight-body{flex:1}
+
+/* Metrics (old style) */
+.cs-metric{text-align:center;padding:1.25rem}
+.cs-metric-num{
+  font-family:var(--serif);font-size:2.4rem;font-weight:700;
+  color:var(--accent);line-height:1;margin-bottom:.3rem;display:block;
+}
+.cs-metric-lbl{font-size:.79rem;color:var(--ink-soft);line-height:1.5}
+
+/* Outcome grid (old style) */
+.cs-outcome{
+  background:var(--ink);border-radius:var(--r-lg);
+  padding:2.5rem;margin:2rem 0;overflow:hidden;position:relative;
+}
+.cs-outcome::before{
+  content:'';position:absolute;top:-60px;right:-60px;width:250px;height:250px;
+  border-radius:50%;background:rgba(61,95,224,.15);filter:blur(50px);pointer-events:none;
+}
+.cs-outcome-label{
+  font-size:.65rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--accent-lt);margin-bottom:1.5rem;display:block;
+}
+.cs-outcome-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem}
+.cs-outcome-p{font-size:.79rem;color:rgba(210,220,240,.5);line-height:1.5}
+
+/* Criteria (research prioritization specific) */
+.cs-criteria{display:flex;flex-direction:column;gap:1.25rem;margin:1.75rem 0}
+.cs-criterion{
+  background:#fff;border:1px solid rgba(13,20,34,.07);
+  border-radius:var(--r-lg);padding:1.4rem 1.6rem;
+  box-shadow:var(--sh-sm);
+  transition:box-shadow .3s,border-color .3s;
+}
+.cs-criterion:hover{box-shadow:var(--sh-md);border-color:rgba(61,95,224,.2)}
+.cs-criterion-header{display:flex;align-items:center;gap:.9rem;margin-bottom:.75rem}
+.cs-criterion-num{
+  width:32px;height:32px;border-radius:50%;
+  background:rgba(61,95,224,.1);flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;
+  font-family:var(--serif);font-size:.9rem;font-weight:700;color:var(--accent);
+}
+.cs-criterion-title{font-size:.96rem;font-weight:600;color:var(--ink)}
+.cs-criterion-body{font-size:.9rem;line-height:1.7;color:var(--ink-mid);margin-bottom:.75rem}
+.cs-criterion-prompt{
+  font-size:.82rem;font-style:italic;color:var(--ink-mid);
+  padding:.6rem .9rem;background:var(--off);border-radius:var(--r);
+  margin-bottom:.5rem;
+}
+.cs-criterion-scale{font-size:.78rem;color:var(--ink-soft)}
+
+/* Behaviours (travel specific) */
+.cs-behaviors{display:flex;flex-direction:column;gap:1rem;margin:1.75rem 0}
+.cs-behavior{
+  display:flex;align-items:flex-start;gap:1.1rem;
+  padding:1.25rem 1.4rem;background:#fff;
+  border:1px solid rgba(13,20,34,.07);border-radius:var(--r-lg);
+  box-shadow:var(--sh-sm);
+  transition:box-shadow .3s,border-color .3s;
+}
+.cs-behavior:hover{box-shadow:var(--sh-md);border-color:rgba(61,95,224,.15)}
+.cs-beh-signal{
+  width:8px;height:8px;border-radius:50%;flex-shrink:0;margin-top:.45rem;
+  background:var(--accent);
+}
+.cs-beh-title{font-size:.92rem;font-weight:600;color:var(--ink);margin-bottom:.3rem}
+.cs-beh-body{font-size:.87rem;line-height:1.65;color:var(--ink-mid)}
+.cs-beh-badge{
+  display:inline-block;font-size:.65rem;font-weight:700;letter-spacing:.08em;
+  text-transform:uppercase;padding:.2rem .55rem;border-radius:100px;
+  margin-bottom:.6rem;
+  background:rgba(61,95,224,.1);color:var(--accent);
+}
+
+/* Scenarios (retail loyalty specific) */
+.cs-scenarios{display:flex;flex-direction:column;gap:1rem;margin:1.75rem 0}
+.cs-scenario{
+  background:#fff;border:1px solid rgba(13,20,34,.07);
+  border-radius:var(--r-lg);padding:1.4rem 1.6rem;
+  box-shadow:var(--sh-sm);
+  transition:box-shadow .3s,border-color .3s;
+}
+.cs-scenario:hover{box-shadow:var(--sh-md);border-color:rgba(61,95,224,.15)}
+.cs-scenario-icon{
+  width:36px;height:36px;border-radius:10px;
+  background:rgba(61,95,224,.1);flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;color:var(--accent);
+  margin-bottom:.75rem;
+}
+.cs-scenario-title{font-size:.96rem;font-weight:600;color:var(--ink);margin-bottom:.35rem}
+.cs-scenario-body{font-size:.9rem;line-height:1.7;color:var(--ink-mid)}
+.cs-scenario-group{display:flex;flex-direction:column;gap:.75rem;margin-top:.75rem}
+
+/* Page nav (old style) */
+.cs-nav{border-top:1px solid rgba(13,20,34,.08);padding:2.5rem 5%;position:relative;z-index:1}
+.cs-nav-link{
+  display:inline-flex;align-items:center;gap:.45rem;
+  font-size:.88rem;font-weight:500;color:var(--ink-soft);
+  transition:color .2s;text-decoration:none;
+}
+.cs-nav-link:hover{color:var(--accent)}
+.cs-nav-title{font-size:.92rem;font-weight:500;color:var(--ink-mid)}
+.cs-nav-dir{font-size:.65rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-soft)}
+
+/* Responsive for old template */
+@media(max-width:720px){
+  .glance{grid-template-columns:repeat(2,1fr)}
+  .glance-cell{border-bottom:1px solid rgba(13,20,34,.07)}
+  .cs-outcome-grid{grid-template-columns:1fr 1fr}
+  nav.nav ul.nav-links{display:none}
+}
+@media(max-width:480px){
+  .glance{grid-template-columns:1fr 1fr}
+  .cs-outcome-grid{grid-template-columns:1fr}
+}
+/* ── PASSWORD GATE ── */
+#byb-gate{
+  position:fixed;
+  top:0;right:0;bottom:0;left:0;
+  width:100%;height:100%;
+  z-index:9999;
+  background:#ffffff;
+  display:flex;align-items:center;justify-content:center;
+  flex-direction:column;gap:1.5rem;
+  opacity:1;visibility:visible;pointer-events:auto;
+  transition:opacity .4s ease,visibility .4s ease;
+}
+#byb-gate.unlocked{opacity:0;visibility:hidden;pointer-events:none;transition:opacity .4s ease,visibility .4s ease}
+.byb-gate-mark{display:flex;align-items:center;gap:.65rem;margin-bottom:.5rem;flex-shrink:0}
+.byb-gate-mark svg{width:28px;height:28px;flex-shrink:0;display:block}
+.byb-gate-title{font-family:'Inter',sans-serif;font-size:1rem;font-weight:400;color:#4A5568;letter-spacing:-.01em}
+.byb-gate-title strong{font-weight:700;color:#0D1422}
+.byb-gate-sub{font-size:.85rem;color:#8896AB;font-family:'Inter',sans-serif;text-align:center;max-width:280px;line-height:1.6;margin-bottom:.5rem}
+.byb-gate-form{display:flex;flex-direction:column;align-items:center;gap:.75rem}
+.byb-gate-input{width:280px;padding:.75rem;border:1px solid #D1D5DB;border-radius:6px;font-size:.9rem;font-family:'Inter',sans-serif;transition:border-color .2s}
+.byb-gate-input:focus{outline:0;border-color:#3D5FE0}
+.byb-gate-btn{background:#3D5FE0;color:#fff;border:none;padding:.75rem 2rem;border-radius:6px;font-size:.9rem;font-weight:600;cursor:pointer;transition:background .2s;font-family:'Inter',sans-serif}
+.byb-gate-btn:hover{background:#2544C8}
+.byb-gate-error{font-size:.75rem;color:#EF4444;display:none;margin-top:.25rem}
+
+
+/* Page body centering for old-template files */
+.page-wrap > .cs-section,
+.page-wrap > .cs-divider,
+.page-wrap > .cs-changes,
+.page-wrap > .cs-cards,
+.page-wrap > .cs-criteria,
+.page-wrap > .cs-behaviors,
+.page-wrap > .cs-scenarios,
+.page-wrap > .cs-insight,
+.page-wrap > .cs-outcome,
+.page-wrap > .cs-metric,
+.page-wrap > .cs-pull,
+.page-wrap > .cs-quote,
+.page-wrap > .cs-nav,
+.page-wrap > p.cs-label,
+.page-wrap > h2.cs-h2,
+.page-wrap > p.cs-p {
+  max-width:760px;margin-left:auto;margin-right:auto;padding-left:5%;padding-right:5%;
+}
+.page-wrap > .cs-section{padding-top:2rem;padding-bottom:0}
+
+/* ── COUNT SPAN ── */
+.cs-count{color:inherit;font-weight:inherit}
+
+/* ── CS-NAV: prev/next layout fix ── */
+.cs-nav{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem}
+.cs-nav-link.prev,.cs-nav-link.next{flex-direction:column;gap:.15rem;align-items:flex-start}
+.cs-nav-link.next{align-items:flex-end;text-align:right}
+.cs-nav-link.prev .cs-nav-dir,.cs-nav-link.next .cs-nav-dir{display:block}
+
+/* ── PHASED SEQUENCE ── */
+.cs-sequence{
+  display:flex;align-items:stretch;gap:0;margin:1.75rem 0;
+  overflow-x:auto;
+}
+.cs-seq-step{
+  flex:1;min-width:150px;
+  background:#fff;border:1px solid rgba(13,20,34,.07);border-radius:var(--r-lg);
+  padding:1.2rem 1.1rem;box-shadow:var(--sh-sm);
+}
+.cs-seq-num{
+  font-size:.62rem;font-weight:700;letter-spacing:.1em;color:var(--accent);margin-bottom:.2rem;
+}
+.cs-seq-phase{
+  font-size:.62rem;font-weight:600;text-transform:uppercase;letter-spacing:.07em;
+  color:var(--ink-soft);margin-bottom:.4rem;
+}
+.cs-seq-title{font-size:.9rem;font-weight:600;color:var(--ink);margin-bottom:.3rem}
+.cs-seq-body{font-size:.81rem;line-height:1.6;color:var(--ink-mid)}
+.cs-seq-arrow{
+  display:flex;align-items:center;justify-content:center;
+  padding:0 .6rem;color:var(--accent-lt);flex-shrink:0;
+}
+
+/* ── LAYERED CARDS ── */
+.cs-layers{display:flex;flex-direction:column;gap:1.1rem;margin:1.75rem 0}
+.cs-layer{
+  background:#fff;border:1px solid rgba(13,20,34,.07);border-radius:var(--r-lg);
+  padding:1.4rem 1.6rem;box-shadow:var(--sh-sm);
+}
+.cs-layer-badge{
+  display:inline-block;font-size:.65rem;font-weight:700;letter-spacing:.08em;
+  text-transform:uppercase;padding:.2rem .55rem;border-radius:100px;
+  margin-bottom:.65rem;background:rgba(61,95,224,.1);color:var(--accent);
+}
+.cs-layer-title{font-size:.96rem;font-weight:600;color:var(--ink);margin-bottom:.3rem}
+.cs-layer-body{font-size:.875rem;line-height:1.65;color:var(--ink-mid);margin-bottom:.75rem}
+.cs-layer-jobs{display:flex;flex-direction:column;gap:.3rem}
+.cs-layer-job{
+  font-size:.82rem;line-height:1.55;color:var(--ink-mid);
+  padding-left:1rem;position:relative;
+}
+.cs-layer-job::before{content:'·';position:absolute;left:.25rem;color:var(--accent);font-size:1rem;line-height:1}
+
+@media(max-width:640px){
+  .cs-sequence{flex-direction:column}
+  .cs-seq-arrow{transform:rotate(90deg);margin:-.25rem auto}
+}
+
+</style>
+<script>
+/* Synchronous gate check - runs before body renders to prevent any flash */
+if(sessionStorage.getItem('byb-unlocked')==='true'){
+  document.addEventListener('DOMContentLoaded',function(){
+    var g=document.getElementById('byb-gate');
+    if(g){g.style.display='none';}
+  });
+}
+</script>
+</head>
+<body>
+<!-- ── PASSWORD GATE ── -->
+<div id="byb-gate">
+  <div class="byb-gate-mark">
+    <svg width="28" height="28" viewBox="0 0 36 36" fill="none">
+      <rect x="4" y="4" width="28" height="28" rx="1.5" stroke="#3D5FE0" stroke-width="1.5" fill="none" opacity=".2"/>
+      <rect x="10" y="10" width="16" height="16" rx="1.5" stroke="#3D5FE0" stroke-width="1.5" fill="none" opacity=".4"/>
+      <rect x="16" y="16" width="4" height="4" rx="1" fill="#3D5FE0"/>
+    </svg>
+    <span class="byb-gate-title">before you <strong>build</strong></span>
+  </div>
+  <p class="byb-gate-sub">This case study is shared privately.<br>Enter your access code to continue.</p>
+  <div class="byb-gate-form">
+    <input class="byb-gate-input" type="password" id="byb-pw" placeholder="Access code" autocomplete="off" onkeydown="if(event.key==='Enter')bybUnlock()"/>
+    <button class="byb-gate-btn" onclick="bybUnlock()">View Case Study</button>
+    <span class="byb-gate-error" id="byb-err">Incorrect code. Please try again.</span>
+  </div>
+</div>
+
+
+
+<div class="cs-bg" aria-hidden="true">
+  <div class="cs-orb cs-orb-1"></div>
+  <div class="cs-orb cs-orb-2"></div>
+  <div class="cs-orb cs-orb-3"></div>
+</div>
+
+<!-- ── NAV ── -->
+<nav id="ul-nav">
+  <a href="index.html" class="ul-logo">
+    <svg class="ul-logo-mark" viewBox="0 0 36 36" fill="none">
+      <rect x="4" y="4" width="28" height="28" rx="1.5" stroke="#3D5FE0" stroke-width="1.5" fill="none" opacity=".2"/>
+      <rect x="10" y="10" width="16" height="16" rx="1.5" stroke="#3D5FE0" stroke-width="1.5" fill="none" opacity=".4"/>
+      <rect x="16" y="16" width="4" height="4" rx="1" fill="#3D5FE0"/>
+    </svg>
+    <span class="ul-logo-text">before you <strong>build</strong></span>
+  </a>
+  <ul class="ul-nav-links">
+    <li><a href="index.html#ul-work">Work</a></li>
+    <li><a href="index.html#ul-about">About</a></li>
+    <li><a href="index.html#ul-contact" class="ul-nav-cta">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- ── HERO ── -->
+<section class="cs-hero">
+  <img class="cs-hero-img" src="images/portfolio_mgm_platform_real_estate_exp.jpg" alt="Commercial real estate portfolio intelligence platform enterprise"/>
+  <div class="cs-hero-overlay"></div>
+  <div class="cs-hero-content">
+    <span class="cs-tag">Commercial Real Estate · Enterprise Product Strategy · JTBD</span>
+    <h1 class="cs-hero-title">The team knew they were building a portfolio platform. Research defined what that actually meant.</h1>
+    <p class="cs-hero-intro">A global real estate team was expanding a site selection tool into something broader. Before any product decisions were made, a Jobs-to-be-Done study across four roles and two continents answered the question that had no clear answer yet: who is this for, what do they need, and what do we build first?</p>
+  </div>
+</section>
+
+<!-- ── AT-A-GLANCE ── -->
+<div class="cs-glance">
+  <div class="cs-glance-inner">
+    <div class="cs-gl-item rv">
+      <div class="cs-gl-icon">
+        <svg width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+      </div>
+      <p class="cs-gl-label">Industry</p>
+      <p class="cs-gl-value">Commercial Real Estate · Enterprise Product Strategy</p>
+    </div>
+    <div class="cs-gl-item rv d1">
+      <div class="cs-gl-icon">
+        <svg width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+      </div>
+      <p class="cs-gl-label">Methods Used</p>
+      <p class="cs-gl-value">JTBD Interviews · Thematic Analysis · Cross-role Pattern Mapping</p>
+    </div>
+    <div class="cs-gl-item rv d2">
+      <div class="cs-gl-icon">
+        <svg width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
+      </div>
+      <p class="cs-gl-label">Research Scale</p>
+      <p class="cs-gl-value"><span class="cs-count" data-target="17" data-suffix="">17</span> interviews · 4+ roles · North America &amp; Europe</p>
+    </div>
+    <div class="cs-gl-item rv d3">
+      <div class="cs-gl-icon">
+        <svg width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+      </div>
+      <p class="cs-gl-label">Key Outcome</p>
+      <p class="cs-gl-value">Evidence-based product scope + sequenced build roadmap grounded in actual user jobs</p>
+    </div>
+  </div>
+</div>
+
+<!-- ── THE GIST ── -->
+<div class="cs-gist-wrap">
+  <div class="cs-gist rv">
+    <p class="cs-gist-label">The gist</p>
+    <div class="cs-gist-items">
+      <div class="cs-gist-item">
+        <div class="cs-gist-dot problem">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        </div>
+        <p class="cs-gist-text"><strong>The problem:</strong> A global real estate team was expanding an existing site selection tool into a full portfolio management platform. The vision was there — the clarity wasn't. Who was it for beyond Transaction Managers? What did each role actually need to accomplish? And when the team had to make trade-offs, what came first? Without research, all of those answers were assumptions.</p>
+      </div>
+      <div class="cs-gist-item">
+        <div class="cs-gist-dot approach">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        </div>
+        <p class="cs-gist-text"><strong>What we did:</strong> A JTBD study — 17 one-on-one interviews across Transaction Managers, Asset Managers, Strategic Portfolio Leads, and others, across North America and Europe. Rather than collecting feature requests, every conversation focused on real situations: what were you trying to decide, and what actually happened when you tried to get the information you needed?</p>
+      </div>
+      <div class="cs-gist-item">
+        <div class="cs-gist-dot outcome">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+        </div>
+        <p class="cs-gist-text"><strong>What changed:</strong> For the first time, the team had an evidence-based picture of who they were building for — not assumed, not inherited from the old tool. Research identified 7 universal jobs shared across every role, provided the language for cross-functional prioritization, and delivered a sequenced build strategy: data access first, then operational workflows, then strategic planning.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── STORY ── -->
+<main class="cs-body">
+
+  <section class="cs-section rv">
+    <p class="cs-section-label">The Situation</p>
+    <h2 class="cs-section-title">A platform with a vision and a starting assumption — but no validated scope.</h2>
+    <p class="cs-prose">The team had a clear starting direction: build for Transaction Managers, help them use portfolio data in site selection decisions. That made sense for the original tool. But as the scope expanded toward a full portfolio management platform, questions multiplied. Which other roles would depend on this? What were they trying to accomplish that they couldn't today? And where exactly did shared needs end and role-specific ones begin?</p>
+    <p class="cs-prose">The answers mattered because they would determine everything — what to build, for whom, in what sequence, and how to make prioritization decisions when the team inevitably had to trade off between capabilities. <strong>Without grounding those answers in research, the team would be building on inherited assumptions from a smaller tool with a narrower scope.</strong></p>
+    <p class="cs-prose">Before any product decisions were made, I proposed a Jobs-to-be-Done study. Not to validate a roadmap that already existed — but to create the foundation one could actually be built on.</p>
+  </section>
+
+  <hr class="cs-divider"/>
+
+  <section class="cs-section rv">
+    <p class="cs-section-label">Research Approach</p>
+    <h2 class="cs-section-title">17 interviews. One question that mattered more than any feature request.</h2>
+    <p class="cs-prose">The study ran 17 one-on-one, 60-minute interviews across roles and regions — Asset Managers, Transaction Managers, Strategic Portfolio Leads, and others in North America and Europe. The central principle was simple: focus on outcomes, not requested features.</p>
+    <div class="cs-pull rv">
+      <p>"Walk me through the last time you needed to pull together portfolio information — what were you trying to decide, and what happened?"</p>
+    </div>
+    <p class="cs-prose">That question — and the stories it produced — revealed something that a feature survey never would have: <strong>the actual jobs people were trying to get done, and where the current reality was failing them.</strong> The conversations surfaced over 200 individual job stories across all participants, which were then analyzed thematically to identify patterns across roles and regions.</p>
+    <p class="cs-prose">The analysis produced two outputs: seven universal jobs shared across every role regardless of function, and a set of role-specific jobs unique to how each function engaged with the portfolio. That distinction became the organizing framework for everything that followed.</p>
+  </section>
+
+  <hr class="cs-divider"/>
+
+  <section class="cs-section rv">
+    <p class="cs-section-label">Key Findings</p>
+    <h2 class="cs-section-title">Three things the team didn't know before the research — and couldn't have assumed their way to.</h2>
+
+    <div class="cs-cards">
+      <div class="cs-card rv d1">
+        <div class="cs-card-num">1</div>
+        <div>
+          <p class="cs-card-title">The platform needed to serve more roles than originally scoped — and jobs fell into two distinct layers</p>
+          <p class="cs-card-body">The tool wasn't just a Transaction Manager tool. Multiple roles depended on portfolio data in different ways — and the research made clear that treating them all the same, or building only for one, would fail the others. What made this finding actionable was the two-layer structure it revealed: some jobs were universal, shared across every role regardless of function. Others were specific to how each role engaged with the portfolio. That distinction became the organizing framework for the entire product — determining what had to be built for everyone versus what could be built for specific functions.</p>
+        </div>
+      </div>
+      <div class="cs-card rv d2">
+        <div class="cs-card-num">2</div>
+        <div>
+          <p class="cs-card-title">Before anything else could work, people just needed to get to reliable information</p>
+          <p class="cs-card-body">The most consistent pain across every role wasn't sophisticated analysis — it was basic access. People were navigating 10+ fragmented systems, spreadsheets, and colleagues just to answer routine questions. A simple portfolio query took 45+ minutes. And when they did find data, they spent more time verifying whether it was accurate than using it — because the same data point could produce different answers depending on which system it came from. Research made clear: until trust in data was established, no other capability in the tool would reach its potential. This finding determined the sequence of the entire build strategy.</p>
+        </div>
+      </div>
+      <div class="cs-card rv d3">
+        <div class="cs-card-num">3</div>
+        <div>
+          <p class="cs-card-title">Institutional knowledge was leaving with every team departure</p>
+          <p class="cs-card-body">Past decisions, site history, alteration records, the rationale behind deals made years ago — this knowledge lived in email inboxes and people's heads. When someone left, it left with them. One interview surfaced a striking example: a site of over 100,000 square metres had been effectively "forgotten" — not flagged in any active system — because the people who knew about it were gone and the documentation had never been preserved centrally. Framing knowledge preservation as a product requirement, not just an operational inconvenience, changed how the team thought about what the platform needed to do.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="cs-divider"/>
+
+  <section class="cs-section rv">
+    <p class="cs-section-label">The Framework</p>
+    <h2 class="cs-section-title">Universal jobs and role-specific jobs — the distinction that structured the entire product.</h2>
+    <p class="cs-prose">The 200+ individual job stories consolidated into a two-layer structure. Seven jobs were universal — shared across every role, regardless of function or region. Nine additional jobs were role-specific, reflecting the distinct ways each function engaged with the portfolio. Understanding which layer a job belonged to determined how it should be prioritized and for whom it should be built.</p>
+
+    <div class="cs-layers rv">
+      <div class="cs-layer">
+        <span class="cs-layer-badge">Universal — all roles</span>
+        <p class="cs-layer-title">7 jobs shared across every function</p>
+        <p class="cs-layer-body">These jobs had to be solved first — not because they were the most exciting, but because every other capability depended on them.</p>
+        <div class="cs-layer-jobs">
+          <div class="cs-layer-job">Integrated portfolio intelligence &amp; flexible reporting</div>
+          <div class="cs-layer-job">Data quality &amp; standardization</div>
+          <div class="cs-layer-job">Landlord consent &amp; site alteration management</div>
+          <div class="cs-layer-job">Strategic lease renewal planning &amp; execution</div>
+          <div class="cs-layer-job">Landlord relationship management</div>
+          <div class="cs-layer-job">Integrated asset lifecycle &amp; handover management</div>
+          <div class="cs-layer-job">Historical data &amp; knowledge preservation</div>
+        </div>
+      </div>
+      <div class="cs-layer">
+        <span class="cs-layer-badge">Role-specific — by function</span>
+        <p class="cs-layer-title">9 jobs unique to how each role works</p>
+        <p class="cs-layer-body">These jobs reflected the distinct responsibilities and expertise of each function — essential context for building role-appropriate experiences.</p>
+        <div class="cs-layer-jobs">
+          <div class="cs-layer-job">Strategic Portfolio Leads: asset value optimization, idle asset recovery, space utilization</div>
+          <div class="cs-layer-job">Asset Managers: lifecycle transitions &amp; compliance, real-time issue resolution</div>
+          <div class="cs-layer-job">Transaction Managers: land acquisition, deal execution, site evaluation</div>
+          <div class="cs-layer-job">Tech &amp; Risk: risk intelligence and project coordination</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="cs-divider"/>
+
+  <section class="cs-section rv">
+    <p class="cs-section-label">What Changed</p>
+    <h2 class="cs-section-title">A sequenced build strategy — derived directly from how the jobs related to each other.</h2>
+    <p class="cs-prose">The research didn't just identify what to build. It made clear in what order — because the jobs themselves had dependencies. Until the foundational data jobs were addressed, operational and strategic jobs couldn't reach their potential. The sequence wasn't a preference; it was a logical consequence of what the research revealed.</p>
+
+    <div class="cs-sequence rv">
+      <div class="cs-seq-step">
+        <p class="cs-seq-num">01</p>
+        <p class="cs-seq-phase">Phase 1 — Foundation</p>
+        <p class="cs-seq-title">Data access &amp; quality</p>
+        <p class="cs-seq-body">Eliminate the 45+ minute searches. Establish a single reliable source of truth. Until users trust the data, nothing else matters.</p>
+      </div>
+      <div class="cs-seq-arrow">
+        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </div>
+      <div class="cs-seq-step">
+        <p class="cs-seq-num">02</p>
+        <p class="cs-seq-phase">Phase 2 — Operations</p>
+        <p class="cs-seq-title">Workflows &amp; coordination</p>
+        <p class="cs-seq-body">Enable landlord consent, lease renewals, and lifecycle handovers — the operational jobs that required reliable data to function at all.</p>
+      </div>
+      <div class="cs-seq-arrow">
+        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </div>
+      <div class="cs-seq-step">
+        <p class="cs-seq-num">03</p>
+        <p class="cs-seq-phase">Phase 3 — Strategy</p>
+        <p class="cs-seq-title">Strategic planning</p>
+        <p class="cs-seq-body">Support portfolio-wide intelligence, relationship management, and knowledge preservation — the jobs that required both good data and operational clarity to be meaningful.</p>
+      </div>
+    </div>
+
+    <div class="cs-changes">
+      <div class="cs-change rv d1">
+        <div class="cs-change-dot">
+          <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+        </div>
+        <p class="cs-change-text"><strong>A shared, evidence-based picture of who the platform was for</strong> — For the first time, the team had a validated scope grounded in what people actually needed to accomplish — not assumed from a legacy tool's narrower remit, and not inherited from a single function's perspective.</p>
+      </div>
+      <div class="cs-change rv d2">
+        <div class="cs-change-dot">
+          <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+        </div>
+        <p class="cs-change-text"><strong>A principled answer to the hardest product question</strong> — "What do we build first?" is usually the question that reveals whether a team is working from clarity or from politics. The sequenced strategy gave the team a defensible, research-grounded answer: data access and quality before everything else.</p>
+      </div>
+      <div class="cs-change rv d3">
+        <div class="cs-change-dot">
+          <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+        </div>
+        <p class="cs-change-text"><strong>Universal jobs as a shared language across product, design, and engineering</strong> — When prioritization conversations happen without a shared vocabulary, they default to advocacy and seniority. Universal jobs gave product, design, and engineering a common reference point — making alignment faster and decisions more grounded.</p>
+      </div>
+    </div>
+  </section>
+
+  <hr class="cs-divider"/>
+
+  <section class="cs-section rv">
+    <p class="cs-section-label">The Outcome</p>
+    <h2 class="cs-section-title">Research as the foundation — not a checkpoint, but the starting point for everything that followed.</h2>
+    <p class="cs-prose">The JTBD study gave the team something that no stakeholder workshop, competitor analysis, or inherited tool roadmap could have provided: a clear, evidence-based answer to who this platform was actually for and what it genuinely needed to do.</p>
+    <p class="cs-prose">The universal jobs framework became the organizing structure for the product. The sequenced build strategy gave engineering and design a principled starting point. And the role-specific jobs ensured that as the platform matured, each function's distinct needs could be addressed without collapsing everything into a generic one-size-fits-all experience.</p>
+    <p class="cs-prose"><strong>The most important outcome wasn't any single finding — it was the shift from assumption-driven scoping to evidence-driven direction.</strong> In enterprise product development at this scale, that shift is the difference between building something that grows into what users need and building something that has to be rebuilt once reality catches up with the assumptions.</p>
+
+    <div class="cs-outcome-block rv">
+      <p class="cs-outcome-label">Research at a glance</p>
+      <div class="cs-outcome-grid">
+        <div>
+          <p class="cs-og-num"><span class="cs-count" data-target="17" data-suffix="">17</span></p>
+          <p class="cs-og-desc">one-on-one interviews across roles and regions — producing 200+ individual job stories</p>
+        </div>
+        <div>
+          <p class="cs-og-num">7</p>
+          <p class="cs-og-desc">universal jobs identified — shared across every role, becoming the product's organizing framework</p>
+        </div>
+        <div>
+          <p class="cs-og-num">3</p>
+          <p class="cs-og-desc">sequenced build phases — data, then operations, then strategy — grounded directly in job dependencies</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- ── CASE NAV ── -->
+<div class="cs-page-nav">
+  <div class="cs-page-nav-inner">
+    <a href="beforeyoubuild-case-retail-loyalty.html" class="cs-back-link">
+      <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+      Previous: Retail Loyalty Experience
+    </a>
+    <div class="cs-next-link">
+      <span class="cs-next-lbl">Next</span>
+      <a href="beforeyoubuild-case-realestate-benchmarking.html" class="cs-next-title">
+        Retail Loyalty Experience
+        <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- ── FOOTER ── -->
+<footer id="ul-footer">
+    <div class="ul-foot-logo">
+        <svg width="20" height="20" viewBox="0 0 36 36" fill="none" aria-hidden="true">
+      <rect x="4" y="4" width="28" height="28" rx="1.5" stroke="var(--accent-lt)" stroke-width="1.5" fill="none" opacity=".2"/>
+      <rect x="10" y="10" width="16" height="16" rx="1.5" stroke="var(--accent-lt)" stroke-width="1.5" fill="none" opacity=".4"/>
+      <rect x="16" y="16" width="4" height="4" rx="1" fill="var(--accent-lt)"/>
+    </svg>
+    before you <span>build</span>
+  </div>
+  <div class="ul-foot-links">
+    <a href="index.html#ul-zones">Services</a>
+    <a href="index.html#ul-work">Work</a>
+    <a href="index.html#ul-about">About</a>
+    <a href="mailto:hello@userlens.ca">Contact</a>
+  </div>
+  <p class="ul-foot-copy">© 2025 Before You Build. All rights reserved.</p>
+</footer>
+
+<script>
+/* ── Scroll reveal ── */
+const ro = new IntersectionObserver(entries => {
+  entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('on'); ro.unobserve(e.target); }});
+}, {threshold:.1});
+document.querySelectorAll('.rv').forEach(el => ro.observe(el));
+
+/* ── Count-up ── */
+function countUp(el){
+  if(el.dataset.counted) return;
+  el.dataset.counted = '1';
+  const target = parseFloat(el.dataset.target);
+  const suffix = el.dataset.suffix || '';
+  const dur = 1400;
+  const start = performance.now();
+  const tick = now => {
+    const p = Math.min((now - start) / dur, 1);
+    const eased = 1 - Math.pow(1 - p, 3);
+    el.textContent = Math.floor(eased * target) + suffix;
+    if(p < 1) requestAnimationFrame(tick);
+    else el.textContent = target + suffix;
+  };
+  requestAnimationFrame(tick);
+}
+const countObs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if(e.isIntersecting){
+      e.target.querySelectorAll('.cs-count').forEach(countUp);
+      countObs.unobserve(e.target);
+    }
+  });
+}, {threshold:.3});
+document.querySelectorAll('.cs-gl-item, .cs-outcome-block').forEach(el => countObs.observe(el));
+</script>
+
+<script>
+/* Right-click disable */
+document.addEventListener('contextmenu',function(e){e.preventDefault();});
+/* Block Ctrl+C, Ctrl+S, Ctrl+U, Ctrl+P, Ctrl+A, F12 */
+document.addEventListener('keydown',function(e){
+  if(e.ctrlKey&&['c','s','u','p','a'].includes(e.key.toLowerCase()))e.preventDefault();
+  if(e.key==='F12')e.preventDefault();
+});
+/* Image drag disable */
+document.querySelectorAll('img').forEach(function(img){
+  img.addEventListener('dragstart',function(e){e.preventDefault();});
+});
+</script>
+
+<script>
+/* Gate unlock logic */
+function bybUnlock(){
+  var pw = document.getElementById('byb-pw').value;
+  if(pw === 'byb2025'){
+    sessionStorage.setItem('byb-unlocked','true');
+    document.getElementById('byb-gate').classList.add('unlocked');
+  } else {
+    var err = document.getElementById('byb-err');
+    err.style.display = 'block';
+    document.getElementById('byb-pw').value = '';
+  }
+}
+/* Hide gate if already unlocked */
+window.addEventListener('DOMContentLoaded', function(){
+  if(sessionStorage.getItem('byb-unlocked')==='true'){
+    var gate = document.getElementById('byb-gate');
+    if(gate) gate.style.display = 'none';
+  }
+});
+document.addEventListener('keydown', function(e){
+  if(e.key==='Escape'){var pw=document.getElementById('byb-pw');if(pw)pw.focus();}
+});
+</script>
+</body>
+</html>
