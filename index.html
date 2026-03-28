@@ -1469,7 +1469,6 @@ a{text-decoration:none}
 
       <!-- ── Contact Form ── -->
       <form id="ul-contact-form" name="contact" action="https://formspree.io/f/xnjojznw" method="POST" novalidate>
-        <!-- honeypot — leave hidden, catches basic bots -->
         <p style="display:none"><input name="bot-field" tabindex="-1" autocomplete="off"/></p>
 
         <div class="ul-form-row">
@@ -1491,18 +1490,10 @@ a{text-decoration:none}
           <textarea id="cf-message" name="message" placeholder="Share a bit about your situation, timeline, or what you're trying to figure out..."></textarea>
         </div>
 
-        <!-- Cloudflare Turnstile — replace data-sitekey with your key from dash.cloudflare.com -->
-        <div class="ul-turnstile-wrap">
-          <div class="cf-turnstile"
-               data-sitekey="YOUR_TURNSTILE_SITE_KEY"
-               data-theme="dark"
-               data-size="flexible">
-          </div>
-        </div>
+  
 
-        <p class="ul-form-error" id="ul-form-error">Please complete the security check before sending.</p>
         <button type="submit" class="ul-form-submit" id="ul-form-btn">Send Message →</button>
-        <p class="ul-form-note">We'll respond within 1–2 business days.</p>
+        
       </form>
 
       <!-- ── Success state (shown after submit) ── -->
