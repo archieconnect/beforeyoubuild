@@ -1828,12 +1828,51 @@ document.querySelectorAll('.ul-fsc').forEach((c,i)=>{
   if(!form) return;
 
   form.addEventListener('submit', async function(e){
-    // If the form is configured to post directly to Formspree, skip the JS handler
-    // so the browser performs a normal form submit. This allows using Formspree
-    // without requiring Cloudflare Turnstile server-side verification.
-    if(form.action && form.action.includes('formspree.io')){
+    const isFormspree = form.action && form.action.includes('formspree.io');
+
+    // For Formspree endpoints, submit via fetch to avoid a full-page redirect.
+    if(isFormspree){
+      e.preventDefault();
+
+      // Basic validation
+      if(!form.checkValidity()){
+        form.reportValidity();
+        return;
+      }
+
+      // UI: disable button while submitting
+      btn.disabled = true;
+      btn.textContent = 'Sending\u2026';
+
+      const note = form.querySelector('.ul-form-note');
+      try {
+        const formData = new FormData(form);
+
+        const res = await fetch(form.action, {
+          method: 'POST',
+          body: formData,
+          headers: { 'Accept': 'application/json' }
+        });
+
+        if(res.ok){
+          btn.textContent = 'Sent \u2713';
+          btn.disabled = true;
+          if(note) note.textContent = "Message sent — thanks! We'll follow up within 1–2 business days.";
+          errMsg.classList.remove('show');
+        } else {
+          const data = await res.json().catch(()=>null);
+          throw new Error((data && data.error) ? data.error : 'Submission failed');
+        }
+      } catch(err){
+        btn.disabled = false;
+        btn.textContent = 'Send Message \u2192';
+        errMsg.textContent = 'Something went wrong — please try again or email directly.';
+        errMsg.classList.add('show');
+      }
+
       return;
     }
+
     e.preventDefault();
 
     // 1. Basic HTML5 validation
