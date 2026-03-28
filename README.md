@@ -41,11 +41,7 @@ Plain HTML/CSS/JS. No framework, no build step, no dependencies beyond Google Fo
 5. **About** — founder bio, credentials, career stats
 6. **Testimonials**
 7. **Comparison table** — embedded vs agency vs DIY
-8. **Contact** — Formspree-backed form with AJAX submit
-
-## Contact form
-
-Submits via AJAX to [Formspree](https://formspree.io/f/xnjojznw). On success, the form hides and a confirmation message is shown inline — no redirect.
+8. **Contact** — contact form with AJAX submit
 
 ## Conventions
 
