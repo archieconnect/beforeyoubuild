@@ -58,3 +58,5 @@ Submits via AJAX to [Formspree](https://formspree.io/f/xnjojznw). On success, th
 ## Deployment
 
 Targeting **beforeyoubuild.ca** (or userlens.ca — TBC). Static files only — drop onto any host (Netlify, GitHub Pages, S3, etc.).
+
+<!-- test update 2026-03-28 -->
