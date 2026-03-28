@@ -1855,9 +1855,8 @@ document.querySelectorAll('.ul-fsc').forEach((c,i)=>{
         });
 
         if(res.ok){
-          btn.textContent = 'Sent \u2713';
-          btn.disabled = true;
-          if(note) note.textContent = "Message sent — thanks! We'll follow up within 1–2 business days.";
+          form.style.display = 'none';
+          success.classList.add('show');
           errMsg.classList.remove('show');
         } else {
           const data = await res.json().catch(()=>null);
